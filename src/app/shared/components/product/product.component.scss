@@ -1,0 +1,42 @@
+.off {
+  color: white;
+  background-color: #212121;
+  width: 70px;
+  height: 80px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  .off-per {
+    position: absolute;
+    top: 12px;
+    left: 8px;
+  }
+}
+.info-p{
+  width: 100%;
+  padding: 0 30px;
+  overflow: hidden;
+}
+.price {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap: 8px;
+  .discount {
+    margin: 8px 0 0;
+    display: flex;
+    align-items: center;
+    color: #7a7a7a;
+    font-size: 18px;
+    text-decoration: line-through;
+  }
+}
+.product-name {
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

@@ -17,7 +17,7 @@
         </div>
     </section>
     <br>
-    
+
     <section class="seccion2P">
         <div class="container-fuid" style="background: #f7f7f7;">
             <div class="container">
@@ -70,17 +70,11 @@
                     </div>
                     <div class="col-md-9 cards-P">
                         <div class="row row-imgs largoImgs" id="imagenesProdutos" >
-                            <div class="col-md-3 largo" *ngFor="let data of product">
-                                <div class="add-car">
-                                    <p>AGREGAR AL CARRITO</p>
-                                </div>
-                                <img src="{{data.imagen}}" class="img-p" alt="">
-                                <div class="info-p">
-                                    <p>${{data.nombre}}</p>
-                                    <H2>${{data.descripcion}}</H2>
-                                    <h1>${{data.precio}}</h1>
-                                </div>
+                          <ng-container *ngFor="let producto of productos">
+                            <div class="col-md-4">
+                              <app-product [producto]="producto"></app-product>
                             </div>
+                          </ng-container>
                         </div>
                         <br>
                         <div class="paginacion">

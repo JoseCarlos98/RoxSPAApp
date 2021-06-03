@@ -1,0 +1,16 @@
+.car-articulo {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  align-items: center;
+  gap: 6px;
+  .car-articulo-item {
+    flex: 1;
+    overflow: hidden;
+  }
+  .center-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

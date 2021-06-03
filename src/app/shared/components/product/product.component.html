@@ -1,0 +1,19 @@
+<div (click)="goProduct()" class="largo">
+  <div *ngIf="producto.descuento" class="off">
+    <span class="off-per">{{ producto.descuento | percent }}</span>
+  </div>
+  <div class="add-car" (click)="addCar()">
+    <p>AGREGAR AL CARRITO</p>
+  </div>
+  <img src="assets/img/maquillaje3.jpg" class="img-p" alt="" />
+  <div class="info-p w-100">
+    <p></p>
+    <H2 class="product-name">{{ producto.nombre }}</H2>
+    <div class="price">
+      <span class="discount" *ngIf="producto.descuento">{{
+        producto.precio | currency
+      }}</span>
+      <h1>{{ precio | currency }}</h1>
+    </div>
+  </div>
+</div>
