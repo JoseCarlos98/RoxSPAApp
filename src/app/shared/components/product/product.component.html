@@ -2,10 +2,17 @@
   <div *ngIf="producto.descuento" class="off">
     <span class="off-per">{{ producto.descuento | percent }}</span>
   </div>
-  <div class="add-car" (click)="addCar()">
+  <div class="add-car" (click)="$event.stopPropagation(); addCar()">
     <p>AGREGAR AL CARRITO</p>
   </div>
-  <img src="assets/img/maquillaje3.jpg" class="img-p" alt="" />
+  <div class="image-producto">
+    <img
+      loading="lazy"
+      [src]="imageRoute | img: producto.id:'productos'"
+      class="img-p"
+      alt=""
+    />
+  </div>
   <div class="info-p w-100">
     <p></p>
     <H2 class="product-name">{{ producto.nombre }}</H2>

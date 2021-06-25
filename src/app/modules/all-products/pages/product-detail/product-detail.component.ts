@@ -13,6 +13,12 @@ import { Subject } from 'rxjs';
 import { Producto } from 'src/app/shared/models/Producto.model';
 import { FormControl, Validators } from '@angular/forms';
 import { CarService } from 'src/app/core/services/car.service';
+import { ApiService } from 'src/app/core/services/api.service';
+import { takeUntil } from 'rxjs/operators';
+import { CONFIG } from 'src/app/config/config';
+import { Descuento } from 'src/app/shared/models/Descuento.model';
+import { ToastrService } from 'ngx-toastr';
+import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -24,23 +30,27 @@ SwiperCore.use([Pagination, Navigation]);
 export class ProductDetailComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  constructor(private _route: ActivatedRoute, private _car: CarService) {}
+  constructor(
+    private _route: ActivatedRoute,
+    private _car: CarService,
+    private _api: ApiService,
+    private _toastr: ToastrService
+  ) {}
 
   private onDestroy = new Subject<any>();
 
   public quantityControl = new FormControl(1, []);
 
+  public coupon: Descuento = {};
+
   private id = undefined;
 
   public producto: Producto = {};
-
-  public get imagen() {
-    return this.producto.archivos?.find((archivo) => archivo.esPrincipal) || '';
-  }
-
+  public image = CONFIG.NOT_FOUND_IMAGE;
   public get hasStock() {
     return (this.producto.stock || 0) > 0;
   }
+
   ngOnInit(): void {
     this._route.params.subscribe((params) => {
       this.id = params['id'];
@@ -64,24 +74,18 @@ export class ProductDetailComponent
   }
 
   getProduct() {
-    this.producto = {
-      id: 8,
-      stock: 10,
-      nombre: 'Producto balin',
-      descuento: 0,
-      precio: 500,
-      descripcion: 'producto malayon que te rejuvenece 20 años',
-      archivos: [
-        { uuid: 'productoDetalle.jpg', esPrincipal: true },
-        { uuid: 'productoDetalle2.jpg', esPrincipal: false },
-        { uuid: 'productoDetalle3.jpg', esPrincipal: false },
-        { uuid: 'productoDetalle.jpg', esPrincipal: false },
-        { uuid: 'productoDetalle2.jpg', esPrincipal: false },
-        { uuid: 'productoDetalle3.jpg', esPrincipal: false },
-        { uuid: 'productoDetalle.jpg', esPrincipal: false },
-      ],
-    };
-    this.setQuantityControl();
+    let filters = { id: this.id };
+    this._api.Productos.getAdvanced({ filters: JSON.stringify(filters) })
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe((res: any) => {
+        this.producto = res && res.length > 0 ? res[0] || {} : {};
+        this.producto.descripcion = JSON.parse(this.producto.descripcion);
+        this.setQuantityControl();
+        let image =
+          this.producto.archivos?.find((archivo) => archivo.esPrincipal)
+            ?.uuid || '';
+        this.image = image;
+      });
   }
 
   addQty() {
@@ -106,6 +110,10 @@ export class ProductDetailComponent
 
   addCar() {
     if (!this.hasStock) {
+      this._toastr.error(
+        `El artículo "${this.producto.nombre}}" no tiene stock suficiente.`,
+        'Sin stock.'
+      );
       return;
     }
     if (this.quantityControl.invalid) {
@@ -118,14 +126,24 @@ export class ProductDetailComponent
       item &&
       item?.quantity + this.quantityControl.value > (this.producto.stock || 0)
     ) {
+      this._toastr.warning(
+        `El artículo "${this.producto.nombre}" sobrepasó el stock, Se a agregado su límite a su carrito.`,
+        'Exceso sobre stock.'
+      );
       qty = this.producto.stock;
     }
+    let image =
+      this.producto.archivos?.find((archivo) => archivo.esPrincipal)?.uuid ||
+      '';
     this._car.Item.update({
       id: this.producto.id || -1,
       name: this.producto.nombre || '',
       price: this.producto.precio || 0,
       info: this.producto.descripcion || '',
       quantity: qty,
+      img: image,
     });
   }
+
 }
+

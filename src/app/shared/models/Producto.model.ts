@@ -7,6 +7,7 @@ export interface Producto {
   nombre?: string;
   precio?: number;
   descripcion?: any;
+  descripcionCorta?: any;
   descuento?: number;
   status?: string;
   archivos?: UploadedFile[];

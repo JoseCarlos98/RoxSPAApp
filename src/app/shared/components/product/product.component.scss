@@ -13,7 +13,11 @@
     left: 8px;
   }
 }
-.info-p{
+.image-producto {
+  width: 270px;
+  height: 270px;
+}
+.info-p {
   width: 100%;
   padding: 0 30px;
   overflow: hidden;
@@ -39,4 +43,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 1; /* number of lines to show */
   -webkit-box-orient: vertical;
+}
+
+.img-p {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
 }

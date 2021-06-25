@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'https://api.roxspastudio.com',
+  stripeKey: 'pk_test_51J0XM2Cztrw1J546GM5k25kNAFag6Df3zcWw8RNjPVpS6iT8a8QWnWiCblVf5IU3wnyK2cxtUVUX2FBxpg5zidpD00tNkFMcO1'
 };
 
 /*

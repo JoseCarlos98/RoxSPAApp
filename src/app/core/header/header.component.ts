@@ -2,6 +2,8 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CONFIG } from 'src/app/config/config';
+import { Descuento } from 'src/app/shared/models/Descuento.model';
 import { CarItem, CarService } from '../services/car.service';
 
 @Component({
@@ -16,37 +18,27 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   public selectedRoute = '';
   public showCar = false;
   public car: CarItem[] = [];
-
+  public cupon?: Descuento;
   public get totals() {
-    let price = this.car.reduce(
-      (acc, ele) => acc + (ele.price || 0) * (ele.quantity || 0),
-      0
-    );
-    let discount = this.car.reduce(
-      (acc, ele) =>
-        acc + ele.price * ((ele.discount || 0) * (ele.quantity || 0)),
-      0
-    );
-    let quantity = this.car.reduce((acc, ele) => acc + (ele.quantity || 0), 0);
-    let total = price - discount;
-    return {
-      price,
-      discount,
-      quantity,
-      total,
-    };
+    return this._car.Car.totals();
   }
-
+  public get descuento() {
+    return (this.cupon?.porcentaje);
+  }
   ngOnInit(): void {
     this._router.events.subscribe((event: any) => {
-      this.selectedRoute = event  ? event.anchor || '' : '';
+      this.selectedRoute = event ? event.anchor || '' : '';
     });
     this._car.car$.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
       this.car = value;
     });
+    this._car.coupon$.pipe(takeUntil(this.onDestroy)).subscribe((value) => {
+      this.cupon = value;
+    });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
@@ -59,5 +51,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   scroll(ele: HTMLElement) {
     ele.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  getProductoImage(carItem: CarItem) {
+    let route = `${CONFIG.IMAGES_PRODUCTOS}/${carItem.img}`;
+    if (!carItem.img) {
+      route = CONFIG.NOT_FOUND_IMAGE;
+    }
+    return route;
   }
 }

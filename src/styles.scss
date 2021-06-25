@@ -9,24 +9,12 @@ body {
 }
 
 @import "./assets/scss/base.scss";
+@import '~ngx-toastr/toastr';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 .page-wrap {
   display: flex;
   flex-direction: column;
-}
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-p{
-  margin: 0;
-}
-
-html{
-  scroll-behavior: smooth;
 }
 :root{
   --rosa: #E86A6A;
@@ -35,12 +23,23 @@ html{
   --montserrat: 'Montserrat';
 
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--montserrat);
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
 
 .seccion1{
   width: 100%;
   height: 100vh;
   border-top: 5px solid var(--rosa-claro);
-  margin-bottom: 130px;
+  // margin-bottom: 130px;
 }
 
 .navv{
@@ -73,18 +72,17 @@ html{
 }
 
 .navbar-nav a{
-  font-family: var(--montserrat), sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #595B5D;
+  transition: 300ms all ease;
+  -webkit-transition: 300ms all ease;
+  -moz-transition: 300ms all ease;
+  -ms-transition: 300ms all ease;
+  -o-transition: 300ms all ease;
 }
 .navbar-nav a:hover{
   color: var(--rosa)!important;
-  transition: .3s all ease;
-  -webkit-transition: .3s all ease;
-  -moz-transition: .3s all ease;
-  -ms-transition: .3s all ease;
-  -o-transition: .3s all ease;
 }
 
 .redes{
@@ -116,26 +114,20 @@ html{
   border-radius: 100%;
   width: 30px;
   height: 30px;
-  text-align: center;
-  transition: .5s all ease;
-  -webkit-transition: .5s all ease;
-  -moz-transition: .5s all ease;
-  -ms-transition: .5s all ease;
-  -o-transition: .5s all ease;
   cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icono-car:hover{
   background: var(--rosa);
-  transition: .5s all ease;
-  -webkit-transition: .5s all ease;
-  -moz-transition: .5s all ease;
-  -ms-transition: .5s all ease;
-  -o-transition: .5s all ease;
 }
 
 .presentacion-fondo{
-  height: 660px;
+  height: auto;
+  min-height: 660px;
   width: 100%;
   position: relative;
 }
@@ -151,22 +143,17 @@ html{
 
 .presentacion-texto h2{
   font-size: 24px;
-  font-weight: 400;
-  font-family: var(--montserrat);
   color: var(--rosa-claro)
 }
 .presentacion-texto :nth-child(2){
   font-size: 72px;
   font-weight: 800;
-  font-family: var(--montserrat);
   color: var(--rosa);
   line-height: 72px;
 }
 
 .presentacion-texto p{
   font-size: 14px;
-  font-weight: 400;
-  font-family: var(--montserrat);
   color: #6D6E70;
   width: 75%;
 }
@@ -197,7 +184,6 @@ html{
 .c-nosotros h3{
   font-size: 36px!important;
   font-weight: 800!important;
-  font-family: var(--montserrat);
   color: #6D6E70!important;
 }
 
@@ -205,7 +191,6 @@ html{
   background-image: url('./assets/img/quienesTop.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  /* height: 480px; */
   height: 50vh;
   background-position: center;
   display: flex;
@@ -217,8 +202,6 @@ html{
 .cont-btnComprar a{
   color: #FFFFFF;
   font-size: 16px;
-  font-family: var(--montserrat);
-  font-weight: 400;
   text-decoration: none;
 
 }
@@ -270,16 +253,11 @@ html{
 }
 
 .circulitos{
-
   color: var(--rosa);
   border-radius: 100%!important;
   border: 0.5px solid var(--rosa)!important;
   width: 10px!important;
   height: 10px!important;
-  -webkit-transition: .5s all ease!important;
-  -moz-transition: .5s all ease;
-  -ms-transition: .5s all ease;
-  -o-transition: .5s all ease;
   -webkit-border-radius: 100%!important;
   -moz-border-radius: 100%!important;
   -ms-border-radius: 100%!important;
@@ -332,7 +310,6 @@ html{
   -moz-transition: .5s all ease;
   -ms-transition: .5s all ease;
   -o-transition: .5s all ease;
-  /* max-height: 690px; */
 }
 .imgsq{
   width: 84px;
@@ -346,33 +323,28 @@ html{
 
 .seccion2{
   height: auto;
+  margin-top: 250px;
   width: 100%;
 }
 .col-somos{
   display: flex;
   align-items: center;
   height: 780px;
-  /* justify-content: center; */
 }
 
 .contenedor-somos{
   height: auto;
-  /* margin-top: 100px; */
 
 }
 .contenedor-somos h2{
   margin: 0;
   font-size: 18px ;
-  font-family: var(--montserrat);
-  font-weight: 400;
   color: var(--rosa-claro);
 }
 
 .contenedor-somos p{
   color: #6D6E70;
-  font-family: var(--montserrat);
   font-size: 14px;
-  font-weight: 400;
 }
 .contenedor-somos h1, .contenedor-somos h1 span{
   font-size: 30px;
@@ -392,7 +364,6 @@ html{
 }
 .conocea{
   font-size: 12px;
-  font-family: var(--montserrat);
   font-weight: 500;
   color: #3C3C3C;
   text-decoration: none;
@@ -442,15 +413,6 @@ html{
 .mN{
   margin: 0!important;
 }
-
-/*
-.hover:hover .img-servicio{
-transition: 1s all ease;
-  -webkit-transition: 1s all ease!important;
-  -moz-transition: 1s all ease!important;
-  -ms-transition: 1s all ease!important;
-  -o-transition: 1s all ease!important;
-} */
 
 .img-servicio {
   background-image: url('./assets/img/servicio1.png');
@@ -517,7 +479,7 @@ transition: 1s all ease;
   -o-transition: 1s all ease;
 }
 .img-servicio5 {
-  background-image: url(./assets/img/servicio5.png);
+  background-image: url('./assets/img/servicio5.png');
   width: 100%;
   height: 380px;
   background-size: cover;
@@ -530,7 +492,6 @@ transition: 1s all ease;
   -o-transition: 1s all ease!important;
   transition: 1s all ease!important;
 }
-
 
 
 .info-servicio{
@@ -561,16 +522,6 @@ transition: 1s all ease;
   left: auto;
   top: 0;
 }
-
-/* .hover:hover .img-servicio{
-  background-size: 111%;
-  transition: 1s all ease;
-  -webkit-transition: 1s all ease;
-  -moz-transition: 1s all ease;
-  transition: 1s all ease!important;
-  -ms-transition: 1s all ease;
-  -o-transition: 1s all ease;
-} */
 
 .hover1:hover .img-servicio{
   transition: 1s all ease!important;
@@ -623,9 +574,7 @@ transition: 1s all ease;
 }
 
 .info-servicio :nth-child(1){
-  font-family: var(--montserrat);
   font-size: 16px;
-  font-weight: 400;
   color: var(--rosa);
   margin: 0;
   margin-bottom: 7px;
@@ -638,7 +587,6 @@ transition: 1s all ease;
 }
 
 .s-titulo{
-  font-family: var(--montserrat);
   font-size: 24px;
   font-weight: 600;
   color: #3C3C3C;
@@ -646,12 +594,8 @@ transition: 1s all ease;
 
 .info-servicio :nth-child(3){
   font-size: 14px;
-  font-weight: 400;
-  font-family: var(--montserrat);
   color: #3C3C3C;
 }
-
-
 
 .seccion3{
   min-height: 3340px;
@@ -666,7 +610,6 @@ transition: 1s all ease;
   padding-left: 0!important;
   position: relative;
 }
-
 
 .productos{
   margin-top: 100px;
@@ -702,7 +645,6 @@ transition: 1s all ease;
   background: white;
   position: relative;
   box-shadow: 0px 0px 26.3px -2.2px rgb(0 0 0 / 10%)!important;
-  /* box-shadow: 0px 0px 26.3px -2.2px rgb(0 0 0 / 10%); */
 }
 
 .add-car:hover{
@@ -741,7 +683,6 @@ transition: 1s all ease;
   margin: 0;
   color: var(--rosa);
   font-weight: 600;
-  font-family: var(--montserrat);
 }
 
 .puntos{
@@ -755,7 +696,6 @@ transition: 1s all ease;
   background: #FFFFFF;
   border: 1px solid var(--rosa);
   font-size: 8px;
-  font-family: var(--montserrat);
   font-weight: 500;
   color: var(--rosa);
   display: flex;
@@ -771,6 +711,7 @@ transition: 1s all ease;
   opacity: 0;
   right: 5%;
   transition: .5s all ease;
+  z-index: 100;
 }
 .add-car p {
   margin: 0;
@@ -782,10 +723,6 @@ transition: 1s all ease;
   display: flex;
   justify-content: space-evenly;
 }
-
-/* .largoImgs .largo{
-  margin-bottom: 25px!important;
-} */
 
 .ver-producto{
   width: 170px;
@@ -822,8 +759,6 @@ transition: 1s all ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--montserrat);
-  font-weight: 400;
   color: var(--rosa);
 }
 
@@ -836,7 +771,7 @@ transition: 1s all ease;
 }
 
 .img1{
-  background-image: url(./assets/img/maquina1.png);
+  background-image: url('./assets/img/maquina1.png');
   width: 100%;
   height: 580px;
   background-size: cover;
@@ -901,7 +836,7 @@ transition: 1s all ease;
 
 
 .img2{
-  background-image: url(./assets/img/maquina2.png);
+  background-image: url('./assets/img/maquina2.png');
   width: 100%;
   height: 580px;
   background-size: cover;
@@ -925,7 +860,7 @@ transition: 1s all ease;
 }
 
 .img3{
-  background-image: url(./assets/img/maquina3.png);
+  background-image: url('./assets/img/maquina3.png');
   width: 100%;
   height: 580px;
   background-size: cover;
@@ -947,7 +882,7 @@ transition: 1s all ease;
   height: auto;
   margin-bottom: 150px;
   position: relative;
-  background-image: url(./assets/img/maquinasBg.jpg);
+  background-image: url('./assets/img/maquinasBg.jpg');
   background-repeat: no-repeat;
   background-position: right;
   background-size: 60%;
@@ -1027,7 +962,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .contacto{
-  background-image: url(./assets/img/bottomBg.jpg);
+  background-image: url('./assets/img/bottomBg.jpg');
   background-repeat: no-repeat;
   background-position: left;
   background-position-y: center;
@@ -1056,21 +991,23 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .c-footer2 p{
   color: #FFFFFF;
-  font-family: var(--montserrat);
   font-size: 12px;
-  font-family: 200;
+  font-weight: 200;
+  margin-bottom: 5px;
 
 }
 
 .redes-f{
   text-align: center;
-  color: var(--rosa-claro);
   width: 50px;
   display: flex;
   justify-content: space-around;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 15px;
 }
+.redes-f a{
+  color: var(--rosa-claro);
+} 
 
 
 .redes-f svg:hover{
@@ -1090,7 +1027,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .copyright{
-  font-family: var(--montserrat);
   font-size: 10px;
   font-weight: 400;
   color: var(--rosa-claro)!important;
@@ -1114,7 +1050,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   z-index: 1000;
 }
 .box-black{
-  font-family: var(--montserrat);
   font-size: 16px;
   font-weight: 400;
 }
@@ -1135,8 +1070,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   opacity: 0;
   display: none;
   box-shadow: 0px 6px 10px #2b2b2b10;
-  /* box-shadow: 0 0px 0px 0 rgb(60 64 67 / 30%), 0 0px 3px 3px rgb(60 64 67 / 15%); */
-  /* box-shadow: 0px 5px 26.3px -2.2px rgb(0 0 0 / 15%); */
   transition: .5s all ease;
 }
 
@@ -1164,7 +1097,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .articulos p {
   margin: 0;
-  font-family: var(--montserrat);
   font-size: 10px;
   color: #2B2B2B;
 }
@@ -1173,17 +1105,12 @@ textarea:focus ~ label, input:valid ~ label 		{
 .car-articulos{
   width: 100%;
   margin: auto;
-  max-height: 290px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #CCCCCC;
-  overflow: auto;
   gap: 8px;
-}
-
-.c-articulos{
 }
 
 
@@ -1202,7 +1129,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 .car-info{
   width: 30%!important;
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   flex-direction: column;
   text-align: left!important;
@@ -1211,18 +1137,14 @@ textarea:focus ~ label, input:valid ~ label 		{
   font-size: 10px;
   color: #212121;
   font-weight: 600;
-  font-family: var(--montserrat);
   margin: 0;
 }
 
 
 .car-info :nth-child(2){
   margin: 0;
-  font-family: var(--montserrat);
   font-size: 8px;
   color: #212121;
-  font-weight: 400;
-
 }
 
 .btns{
@@ -1245,11 +1167,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 .btns svg:hover{
   background: var(--rosa);
-  transition: 300ms all ease;
-  -webkit-transition: 300ms all ease;
-  -moz-transition: 300ms all ease;
-  -ms-transition: 300ms all ease;
-  -o-transition: 300ms all ease;
 }
 .precio{
   display: flex;
@@ -1265,7 +1182,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .precio svg{
-  color: #D5D5D5;
+  color: var(--rosa);
 }
 
 .info-total{
@@ -1301,15 +1218,12 @@ textarea:focus ~ label, input:valid ~ label 		{
 .btn-checkout h2{
   color: white;
   font-size: 14px;
-  font-family: var(--montserrat);
   font-weight: 600;
 }
 .info-total p{
   margin: 0;
   font-size: 12px;
-  font-weight: 400;
   color: #6D6E70;
-  font-family: var(--montserrat);
 }
 .info-total {
   display: flex;
@@ -1323,10 +1237,15 @@ textarea:focus ~ label, input:valid ~ label 		{
   align-items: center;
 }
 
+
+.total{
+  width: 31%;
+}
+
 .total p{
   color: var(--rosa)!important;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   margin: 0;
 }
 
@@ -1344,7 +1263,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 .col-infoN::before{
   content: "";
   background: linear-gradient(to left, #62BB4620 0%, #62BB4620 50%);
-  /* opacity: 20%; */
   width: 50%;
   height: 100%;
   position: absolute;
@@ -1353,7 +1271,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 
 .planta{
-  background-image: url(./assets/img/planta_qs.png);
+  background-image: url('./assets/img/planta_qs.png');
   height: 380px;
   width: 380px;
   position: absolute;
@@ -1378,17 +1296,15 @@ textarea:focus ~ label, input:valid ~ label 		{
   width: 270px;
   height: 270px;
   background-size: cover;
-  background-image: url(./assets/img/qs1.jpg);
+  background-image: url('./assets/img/qs1.jpg');
 }
 .imgN2{
-  background-image: url(./assets/img/qs2.jpg)!important;
+  background-image: url('./assets/img/qs2.jpg')!important;
 }
 .imgN3{
-  /* margin-right: 10px; */
-  /* margin-top: 25px; */
   height: 270px;
   background-size: cover;
-  background-image: url(./assets/img/qs3.jpg);
+  background-image: url('./assets/img/qs3.jpg');
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -1420,9 +1336,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   height: 530px!important;
 }
 
-/* .seccion2N{
-  margin-top: 80px;
-} */
 .seccion3N{
   height: 1200px;
   background: #212121;
@@ -1448,7 +1361,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   font-size: 16px;
   line-height: 30px;
   color: #F7F7F7;
-  font-family: var(--montserrat);
 }
 .p-m{
   width:370px;
@@ -1458,16 +1370,14 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 
-
-
 /* PRODUCTOS  */
 
 .seccion1P{
-  width: 100vw;
+  width: 100%;
   background: #FFFFFF;
   height: 720px;
   background-size: 60%;
-  background-image: url(./assets/img/productosTop.jpg);
+  background-image: url('./assets/img/productosTop.jpg');
   background-repeat: no-repeat;
   background-position: inherit;
 }
@@ -1499,7 +1409,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  font-family: var(--montserrat);
   margin-right: 15px;
   color: #3C3C3C;
 }
@@ -1511,9 +1420,9 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .productosP{
   width: 100%;
-  min-height: 1900px;
-  /* background: var(--cremoso); */
-  height: 100%;
+  // min-height: 1900px;
+  // height: 100%;
+  height: auto;
 }
 
 .card-categoria{
@@ -1525,8 +1434,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   justify-content: space-around;
 }
 .card-categoria h2{
-  font-family: var(--montserrat);
-  font-weight: 400;
   font-size: 18px;
   color: #22262A;
 }
@@ -1548,7 +1455,6 @@ textarea:focus ~ label, input:valid ~ label 		{
   color: #262626;
   font-family: var(--montserrat);
   font-size: 14px;
-  font-weight: 400;
   -webkit-transition: 300ms all ease;
   -moz-transition: 300ms all ease;
   -ms-transition: 300ms all ease;
@@ -1562,7 +1468,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .cards-P{
-  min-height: 1700px;
+  // min-height: 1700px;
   height: auto;
   margin-bottom: 50px;
 }
@@ -1579,6 +1485,8 @@ textarea:focus ~ label, input:valid ~ label 		{
   display: flex;
   margin: auto;
   cursor: pointer;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .paginacion p:hover{
@@ -1600,9 +1508,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   height: 56px;
   margin: 0;
   font-size: 18px;
-  font-weight: 400;
   color: #22262A;
-  font-family: var(--montserrat);
 }
 
 .cont-detail{
@@ -1621,9 +1527,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   justify-content: space-between;
 }
 .img-detalles{
-  /* width: 470px; */
-  width: 100%;
-  /* overflow: hidden; */
+  width: 470px;
   height: 470px;
   display: flex;
   justify-content: center;
@@ -1636,9 +1540,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .carrucel{
-  /* width: 470px; */
   width: 100%;
-  /* background: blue; */
   height: 62px;
   margin-top: 15px;
 }
@@ -1650,29 +1552,22 @@ textarea:focus ~ label, input:valid ~ label 		{
 .detalle-info h1{
   font-size: 20px;
   color: var(--rosa-claro);
-  font-family: var(--montserrat);
   font-weight: 700;
-  margin-bottom: 10px;
 }
 .detalle-info h2{
   line-height: 30px;
   font-size: 17px;
   color: #909090;
-  font-family: var(--montserrat);
-  font-weight: 400;
-  margin-bottom: 24px;
 }
-.detalle-info h2 span{
+.detalle-info span{
   font-size: 20px;
   font-weight: 700;
-  font-family: var(--montserrat);
   color: #101218;
 }
 .detalle-info h3{
-  margin-bottom: 13px;
+  margin: 30px 0 13px 0;
   font-size: 15px;
   font-weight: 500;
-  font-family: var(--montserrat);
   color: var(--rosa);
 }
 .detalle-info p{
@@ -1700,6 +1595,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   -o-border-radius: 4px;
 }
 .add-producto div{
+  height: 100%;
   width: 33.3%;
   display: flex;
   align-items: center;
@@ -1708,8 +1604,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 .add-producto p{
   margin: 0;
   font-size: 16px;
-  font-family: var(--montserrat);
-  font-weight: 400;
 }
 .add-producto svg{
   color: var(--rosa);
@@ -1721,7 +1615,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 .btns-details{
   width: 85%;
   height: 40px;
-  /* background: red; */
   display: flex;
   justify-content: space-between;
   margin-bottom: 45px;
@@ -1730,12 +1623,10 @@ textarea:focus ~ label, input:valid ~ label 		{
 .btn1{
   display: flex;
   align-items: center;
-  width: 229px;
+  width: 230px;
   height: 40px;
-  /* background: linear-gradient(to left, red 0%, red 50%); */
   position: relative;
   border: 2px solid var(--rosa-claro);
-  /* z-index: 100000; */
 }
 .btn1 .relleno{
   width: 10%;
@@ -1752,12 +1643,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 .btn1:hover .art{
   color: white;
-  z-index: 10000;
-  /* transition: 100ms;
-  -webkit-transition: 100ms;
-  -moz-transition: 100ms;
-  -ms-transition: 100ms;
-  -o-transition: 100ms; */
+  z-index: 1000;
 }
 
 .btn1:hover .relleno{
@@ -1772,24 +1658,23 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .btn1 div{
   width: 44px;
-  height: 100%;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--rosa-claro);
   color: white;
-  z-index: 1000000;
+  z-index: 1000;
 }
 .btn1 p{
   margin: 0;
   text-align: center;
   width: 100%;
-  font: 12px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--rosa-claro);
   z-index: 2;
 }
-
 
 .criterio {
   border-bottom: 1px solid #A8A8A8;
@@ -1797,10 +1682,11 @@ textarea:focus ~ label, input:valid ~ label 		{
   height: 42px;
 }
 .criterio p{
-  width: 227px;
   color: #A8A8A8;
   font-size: 10px;
-  font-weight: 400;
+}
+.carrucel-lista{
+  display: flex;
 }
 .carrucel-lista .img-carrucel{
   border: 1px solid #A8A8A8;
@@ -1808,6 +1694,11 @@ textarea:focus ~ label, input:valid ~ label 		{
   height: 64px!important;
   min-width: unset!important;
   margin: 0 10px;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .carrucel-principal{
@@ -1844,7 +1735,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 .detail :nth-child(2){
   color: var(--rosa);
-  font-weight: 400;
   margin-top: 5px;
 }
 
@@ -1870,17 +1760,15 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .info-prod h1{
-    
+
     font-size: 16px;
     font-family: var(--montserrat);
-    font-weight: 400;
     color: #3C3C3C;
 }
 
 .precio-prod p{
     font-size: 16px;
     font-weight: 600;
-    font-family: var(--montserrat);
     color: #262626;
     margin: 0;
     text-align: center;
@@ -1911,9 +1799,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 .descripcion-p p{
     margin: 0;
     font-size: 16px;
-    font-family: var(--montserrat);
     color: #6D6E70;
-    font-weight: 400;
 }
 
 .tutilo p {
@@ -1926,8 +1812,6 @@ textarea:focus ~ label, input:valid ~ label 		{
     justify-content: center;
 }
 
-
-
 .pagar{
     width: 370px;
     height: 309px;
@@ -1937,7 +1821,6 @@ textarea:focus ~ label, input:valid ~ label 		{
     font-size: 16px!important;
     font-weight: 500;
     color: #3C3C3C;
-    font-family: var(--montserrat);
 }
 
 .envio p{
@@ -1950,7 +1833,6 @@ textarea:focus ~ label, input:valid ~ label 		{
 .car-total p{
     margin: 0;
     font-size: 16px;
-    font-family: var(--montserrat);
     font-weight: 700;
 
 }
@@ -1979,7 +1861,7 @@ textarea:focus ~ label, input:valid ~ label 		{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 2px solid var(--rosa-claro);
-    
+
 }
 .canjear button{
     border-top-right-radius: 5px;
@@ -2003,6 +1885,65 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 
+.confirmation{
+  width: 100%;
+  height: calc(100vh - 150px);
+  display: flex;
+  align-items: center
+}
+
+.info-confirmation{
+  width: 386px;
+  height: 500px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.info-confirmation img{
+  width: 280px;
+  height: 280px;
+  margin-bottom: 40px;
+}
+.info-confirmation h1{
+  font-family: var(--montserrat);
+  font-size: 30px;
+  font-weight: 700;
+  color: #6D6E70;
+  margin-bottom: 25px;
+}
+.info-confirmation p{
+  font-size: 14px;
+  color: #3C3C3C;
+  font-family: monospace;
+}
+.info-confirmation  span{
+  font-weight: 600;
+}
+.info-confirmation div{
+  width: 370px;
+  height: 56px;
+  background: #62BB46;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 300ms all ease;
+  cursor: pointer;
+  font-family: var(--montserrat);
+  -webkit-transition: 300ms all ease;
+  -moz-transition: 300ms all ease;
+  -ms-transition: 300ms all ease;
+  -o-transition: 300ms all ease;
+}
+
+
+.info-confirmation div:hover{
+  background: #4A9632;
+  letter-spacing: 2px;
+}
+
+
+
 
 @media screen and (max-width: 800px) {
   .img-prod{
@@ -2019,7 +1960,7 @@ textarea:focus ~ label, input:valid ~ label 		{
     text-align: center;
     font-size:10px;
   }
-  
+
   .precio-prod p{
     font-size: 10px;
   }
@@ -2261,56 +2202,69 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
   .col-detail{
     height: auto!important;
-}
-.cont-detail{
+  }
+  .cont-detail{
     height: auto;
-}
+  }
 
 
-.img-detalles{
+  .img-detalles{
     height: auto;
-}
+  }
 
-.btn1 p{
+  .btn1 p{
     font-size: 11px;
-}
+  }
 
-.cont-detail .col-md-6{
+  .cont-detail .col-md-6{
     margin-top: 50px;
     text-align: center;
-}
+  }
 
-.detalle-info{
+  .detalle-info{
     width: 100%;
     height: auto;
-}
-.glider-track{
+  }
+  .glider-track{
     display: flex;
     width: 470px;
-}
+  }
 
-.add-producto{
+  .add-producto{
     margin: auto;
     margin-bottom: 50px;
-}
+  }
 
-.btns-details{
+  .btns-details{
     width: 100%;
     justify-content: space-evenly;
-}
+  }
 
-.btn1{
+  .btn1{
     width: 45%;
-}
+  }
 
-.criterio {
+  .criterio {
     width: 100%;
-}
-.criterio p{
+  }
+  .criterio p{
     width: 100%;
-}
+  }
 
+  .info-confirmation {
+    text-align: center;
+    width: 90%;
+    height: auto;
+    margin: auto;
+  }
 
+  .info-confirmation div{
+      width: 100%;
+  }
+
+  .info-confirmation img{
+      width: 100%;
+  }
 }
 
 .selected-route{
@@ -2323,4 +2277,8 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .no-select{
   user-select: none;
+}
+
+.ql-editor{
+  padding: 0!important;
 }

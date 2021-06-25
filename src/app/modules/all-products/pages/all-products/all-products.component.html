@@ -1,134 +1,162 @@
 <div class="seccion1 ns">
-    <section class="seccion1P">
-        <div class="container">
-            <div class="row rowP">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6 d-flex align-items-lg-center justify-content-center h-p">
-                    <div class="infoP">
-                        <div class="col-8 contenedor-somos sin-M">
-                            <h2 style="margin: 0;">La mejor calidad</h2>
-                            <h1 style="color: #212121;">Nuestros productos</h1>
-                            <p class="p-m">Aenean sollicitudin imperdiet ipsum quis pharetra. Fusce non aliquam quam. Morbi scelerisque dictum erat sit amet viverra. Quisque dignissim justo consequat diam euismod porta. Maecenas mollis finibus nisl, eget accumsan ex sollicitudin ut.</p>
-                        </div>
-                    </div>
-                </div>
+  <section class="seccion1P">
+    <div class="container">
+      <div class="row rowP">
+        <div class="col-md-6"></div>
+        <div
+          class="
+            col-md-6
+            d-flex
+            align-items-lg-center
+            justify-content-center
+            h-p
+          "
+        >
+          <div class="infoP">
+            <div class="col-8 contenedor-somos sin-M">
+              <h2 style="margin: 0">La mejor calidad</h2>
+              <h1 style="color: #212121">Nuestros productos</h1>
+              <p class="p-m">
+                Aenean sollicitudin imperdiet ipsum quis pharetra. Fusce non
+                aliquam quam. Morbi scelerisque dictum erat sit amet viverra.
+                Quisque dignissim justo consequat diam euismod porta. Maecenas
+                mollis finibus nisl, eget accumsan ex sollicitudin ut.
+              </p>
             </div>
+          </div>
         </div>
-    </section>
-    <br>
+      </div>
+    </div>
+  </section>
+  <br />
 
-    <section class="seccion2P">
-        <div class="container-fuid" style="background: #f7f7f7;">
-            <div class="container">
-                <div class="opcionesP">
-                    <p>Inicio</p>
-                    <p>/</p>
-                    <p>Productos</p>
-                    <p>/</p>
-                    <p>Mejillas</p>
-                </div>
-            </div>
+  <section class="seccion2P">
+    <div class="container-fuid" style="background: #f7f7f7">
+      <div class="container">
+        <div class="opcionesP">
+          <p (click)="removeSearch()">Inicio</p>
+          <ng-container *ngIf="categoria">
+            <p>/</p>
+            <p>{{ mainCategoria?.nombre || "-" }}</p>
+          </ng-container>
+          <ng-container *ngIf="mainSubCategoria && mainSubCategoria.nombre">
+            <p>/</p>
+            <p>{{ mainSubCategoria.nombre || "-" }}</p>
+          </ng-container>
         </div>
-        <br><br>
-        <!-- PRODUCTOS  -->
-        <div class="productosP">
-            <div class="container">
-                <div class="row d-flex justify-content-lg-between">
-                    <div class="col-md-3 card-categoria">
-                        <h2>CATEGORÍAS</h2>
-                        <br>
-                        <div class="sub-categorias">
-                            <p>Rostro</p>
-                            <p>2</p>
-                        </div>
-                        <div class="sub-categorias ">
-                            <p class="seleccionadoP">Mejillas</p>
-                            <p>48</p>
-                        </div>
-                        <div class="sub-categorias">
-                            <p>Ojos</p>
-                            <p>14</p>
-                        </div>
-                        <div class="sub-categorias">
-                            <p>Labios</p>
-                            <p>15</p>
-                        </div>
-                        <div class="sub-categorias">
-                            <p>Uñas</p>
-                            <p>23</p>
-                        </div>
-                        <div class="sub-categorias">
-                            <p>Brochas y Aplicaciónes</p>
-                            <p>1</p>
-                        </div>
-                        <div class="sub-categorias">
-                            <p>Accesorios</p>
-                            <p>95</p>
-                        </div>
-
+      </div>
+    </div>
+    <br /><br />
+    <!-- PRODUCTOS  -->
+    <div class="productosP">
+      <div class="container">
+        <div class="row d-flex justify-content-lg-between">
+          <div class="col-md-3 card-categoria">
+            <h2 class="main-categoria-title">CATEGORÍAS</h2>
+            <div class="categorias">
+              <ng-container *ngFor="let categoria of categorias">
+                <div class="categoria">
+                  <p class="no-hover categoria-title">{{ categoria.nombre }}</p>
+                  <ng-container
+                    *ngFor="let subCategoria of categoria.subCategorias"
+                  >
+                    <div class="sub-categorias">
+                      <p
+                        [ngClass]="{
+                          'categoria-selected':
+                            subCategoria.id === mainSubCategoria.id
+                        }"
+                        (click)="search(subCategoria.id)"
+                      >
+                        {{ subCategoria.nombre }}
+                      </p>
+                      <p>{{ counts[subCategoria.id || 0] || 0 }}</p>
                     </div>
-                    <div class="col-md-9 cards-P">
-                        <div class="row row-imgs largoImgs" id="imagenesProdutos" >
-                          <ng-container *ngFor="let producto of productos">
-                            <div class="col-md-4">
-                              <app-product [producto]="producto"></app-product>
-                            </div>
-                          </ng-container>
-                        </div>
-                        <br>
-                        <div class="paginacion">
-                            <p>1</p>
-                            <p>2</p>
-                            <p>3</p>
-                            <p>4</p>
-                            <p>5</p>
-                        </div>
-                    </div>
+                  </ng-container>
                 </div>
+              </ng-container>
             </div>
+          </div>
+          <div class="col-md-9 cards-P">
+            <div class="row row-imgs largoImgs" id="imagenesProdutos">
+              <ng-container *ngFor="let producto of productos">
+                <div class="col-md-4">
+                  <app-product [producto]="producto"></app-product>
+                </div>
+              </ng-container>
+            </div>
+            <br />
+            <div class="paginacion">
+              <ng-container *ngFor="let pag of pages; let index = index"
+                ><p [ngClass]="{ 'page-selected': index + 1 === page }">
+                  {{ index + 1 }}
+                </p></ng-container
+              >
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-<!-- CONTACTO  -->
+  <!-- CONTACTO  -->
   <div class="container-fluid contacto">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
-        </div>
+        <div class="col-md-6"></div>
         <div class="col-md-6">
           <div class="c-formulario">
-            <div class="col-12 contenedor-somos" style="height: auto;">
-              <h2 style="margin: 0;">¿Te interesa hacer una cita? </h2>
-              <h1 style="color: #3C3C3C; line-height: 60px; font-size: 48px; color: #212121;">Contáctanos</h1>
-              <br>
-              <form  novalidate>
+            <div class="col-12 contenedor-somos" style="height: auto">
+              <h2 style="margin: 0">¿Te interesa hacer una cita?</h2>
+              <h1
+                style="
+                  color: #3c3c3c;
+                  line-height: 60px;
+                  font-size: 48px;
+                  color: #212121;
+                "
+              >
+                Contáctanos
+              </h1>
+              <br />
+              <form novalidate>
                 <div class="group">
-                    <input class="inputext" id="name" type="text" required />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label class="input-descripcion">Nombre</label>
+                  <input class="inputext" id="name" type="text" required />
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label class="input-descripcion">Nombre</label>
                 </div>
                 <div class="group">
-                    <input class="inputext" id="email" type="text" required />
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label class="input-descripcion">Email</label>
+                  <input class="inputext" id="email" type="text" required />
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label class="input-descripcion">Email</label>
                 </div>
-                <div class="group" style="padding-top: 30px;">
-                    <textarea class="inputext" id="message" name=""  cols="5" rows="2"></textarea>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label class="input-descripcion">Mensaje</label>
+                <div class="group" style="padding-top: 30px">
+                  <textarea
+                    class="inputext"
+                    id="message"
+                    name=""
+                    cols="5"
+                    rows="2"
+                  ></textarea>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label class="input-descripcion">Mensaje</label>
                 </div>
                 <div>
-                    <a class="btn-enviar" id="sendMessageButton" onclick="enviarmail()">ENVIAR</a>
+                  <a
+                    class="btn-enviar"
+                    id="sendMessageButton"
+                    onclick="enviarmail()"
+                    >ENVIAR</a
+                  >
                 </div>
-            </form>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>

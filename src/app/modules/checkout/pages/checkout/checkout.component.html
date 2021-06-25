@@ -1,0 +1,478 @@
+<section class="checkout mb-5">
+  <div
+    class="container d-flex justify-content-between flex-lg-nowrap flex-wrap"
+  >
+    <form
+      [formGroup]="form"
+      class="w-100 mt-4"
+      (keydown.enter)="$event.preventDefault()"
+    >
+      <div class="item mr-4">
+        <div class="compra">
+          <h2 class="titleCompra">INFORMACIÓN DE ENVÍO</h2>
+        </div>
+        <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+            mt-2
+          "
+        >
+          <div class="form-group">
+            <label class="labelInput">Nombre Completo</label>
+            <input
+              formControlName="nombreCliente"
+              type="text"
+              placeholder="Nombre completo"
+              class="form-control inputCanje"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!f.nombreCliente.value && f.nombreCliente.touched"
+              >Introduce tu nombre</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="labelInput">Correo Electrónico</label>
+            <input
+              formControlName="correo"
+              type="email"
+              placeholder="Correo Electronico"
+              class="form-control inputCanje"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!f.correo.value && f.correo.touched"
+            >
+              Introduce tu correo electrónico</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="!f.correo.pristine && f.correo.errors?.email"
+            >
+              Introduce un correo válido.</small
+            >
+          </div>
+        </div>
+        <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+          "
+        >
+          <div class="form-group formwMovil">
+            <label class="labelInput">Pais</label>
+            <ng-select
+              formControlName="pais"
+              [searchable]="false"
+              [clearable]="false"
+              class="mb-2 select-bg"
+              [items]="paises"
+              bindLabel="name"
+              bindValue="id"
+              placeholder=""
+            >
+            </ng-select>
+          </div>
+          <div class="form-group formwMovil">
+            <label class="labelInput">Estado</label>
+            <ng-select
+              formControlName="estado"
+              [searchable]="true"
+              [clearable]="false"
+              class="mb-2 select-bg"
+              [items]="estadosMx"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Selecciona tu estado"
+            >
+            </ng-select>
+            <small
+              class="text-danger"
+              *ngIf="!f.estado.value && f.estado.touched"
+            >
+              Selecciona tu estado</small
+            >
+          </div>
+        </div>
+        <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+          "
+        >
+          <div class="form-group">
+            <label class="labelInput">Ciudad</label>
+            <input
+              type="text"
+              formControlName="ciudad"
+              placeholder="Introduce tu ciudad"
+              class="form-control inputCanje"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!f.ciudad.value && f.ciudad.touched"
+              >Introduce una ciudad.</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="labelInput">Calle</label>
+            <input
+              type="text"
+              formControlName="calle"
+              placeholder="Calle, boulevard, avenida etc."
+              class="form-control inputCanje"
+            />
+            <small class="text-danger" *ngIf="!f.calle.value && f.calle.touched"
+              >Introduce una calle</small
+            >
+          </div>
+        </div>
+        <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+          "
+        >
+          <div class="form-group">
+            <label class="labelInput">Número Exterior</label>
+            <input
+              type="text"
+              formControlName="numExt"
+              minlength="1"
+              maxlength="6"
+              placeholder="Número exterior"
+              class="form-control inputCanje"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!f.numExt.value && f.numExt.touched"
+              >Introduce un número exterior</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="f.numExt.errors?.pattern && f.numExt.touched"
+              >Solamente números</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="labelInput"
+              >Número Interior <small>(Opcional)</small>
+            </label>
+            <input
+              type="text"
+              placeholder="Número interior"
+              minlength="1"
+              maxlength="6"
+              formControlName="numInt"
+              class="form-control inputCanje"
+            />
+          </div>
+        </div>
+        <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+          "
+        >
+          <div class="form-group">
+            <label class="labelInput">Codigo Postal</label>
+            <input
+              type="text"
+              formControlName="cp"
+              placeholder="Introduce C.P"
+              class="form-control inputCanje"
+            />
+            <small class="text-danger" *ngIf="!f.cp.value && f.cp.touched">
+              Introduce tu C.P</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="f.cp.errors?.pattern && f.cp.touched"
+              >Solamente números</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="labelInput">Teléfono</label>
+            <input
+              type="tel"
+              formControlName="telefono"
+              name="phone-number"
+              maxlength="10"
+              minlength="10"
+              placeholder="Número de teléfono a 10 dígitos"
+              class="form-control inputCanje"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!f.telefono.value && f.telefono.touched"
+              >Introduce tu num. de teléfono</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="f.telefono.errors?.pattern && f.telefono.touched"
+            >
+              Solamente números</small
+            >
+          </div>
+        </div>
+        <!-- <div
+          class="
+            item
+            d-flex
+            justify-content-between
+            flex-lg-row flex-column
+            itemWidthForm
+          "
+        >
+          <div class="form-group">
+            <label class="mb-3 labelInput">Elige tu forma de envío</label>
+            <div class="d-flex justify-content-around">
+              <div class="item d-flex mr-4">
+                <input
+                  name="express"
+                  [value]="true"
+                  id="radio3"
+                  class="mr-4"
+                  type="radio"
+                  formControlName="express"
+                />
+                <label for="radio3" class="labelChecked">Express</label>
+              </div>
+              <div class="item d-flex">
+                <input
+                  name="express"
+                  [value]="false"
+                  id="radio4"
+                  class="mr-4"
+                  type="radio"
+                  formControlName="express"
+                />
+                <label for="radio4" class="labelChecked">Estandar</label>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="compra">
+          <h2 class="titleCompra">COMPRA</h2>
+          <p>Información de pago</p>
+        </div>
+        <div class="mt-4">
+          <div
+            class="
+              item
+              d-flex
+              justify-content-between
+              flex-lg-row flex-column
+              itemWidthForm
+            "
+          >
+            <div class="form-group">
+              <label class="mb-3 labelInput">Elige tu forma de pago</label>
+              <div class="d-flex justify-content-around">
+                <div class="item d-flex mr-4">
+                  <input
+                    name="metodoPago"
+                    [value]="'tarjeta'"
+                    id="radio6"
+                    class="mr-4"
+                    type="radio"
+                    formControlName="metodoPago"
+                  />
+                  <label for="radio6" class="labelChecked"
+                    >Pago con tarjeta</label
+                  >
+                </div>
+                <!-- <div class="item d-flex">
+                  <input
+                    name="metodoPago"
+                    [value]="'oxxo'"
+                    id="radio5"
+                    class="mr-4"
+                    type="radio"
+                    formControlName="metodoPago"
+                  />
+                  <label for="radio5" class="labelChecked">Pago en Oxxo</label>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="itemWidthForm">
+            <div class="w-75">
+              <div class="pay-container">
+                <!-- OXXO -->
+                <ng-container *ngIf="f.metodoPago.value == 'oxxo'">
+                  <form class="cardMetodo">
+                    <h2 class="titleTarget">Pago en oxxo</h2>
+                    <div class="col-12 mt-3">
+                      <h5>Instrucciones</h5>
+                      <p>
+                        Generaremos un ticket para que acudas a tu tienda OXXO
+                        mas cercana a realizar el pago de tus productos.
+                      </p>
+                      <p>
+                        <strong
+                          >Debes realizar tu pago en un lapso no mayor a 3
+                          días.</strong
+                        >
+                      </p>
+                      <p>
+                        Una vez realizado tu pago,
+                        <strong
+                          >se verá reflejado en 1 o 2 dias hábiles.</strong
+                        >
+                      </p>
+                    </div>
+                  </form>
+                </ng-container>
+
+                <!-- CARD -->
+                <ng-container *ngIf="f.metodoPago.value == 'tarjeta'">
+                  <form class="row" [formGroup]="payForm">
+                    <div class="form-group col-12 col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nombres"
+                        placeholder="Nombres"
+                      />
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="apellidos"
+                        placeholder="Apellidos"
+                      />
+                    </div>
+                  </form>
+                  <ngx-stripe-card
+                    [elementsOptions]="elementsOptions"
+                    [options]="cardOptions"
+                  ></ngx-stripe-card>
+                </ng-container>
+
+                <button class="pay-btn mt-2" (click)="pay()">PAGAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="total mt-3">
+      <h2 class="titleCompra" style="padding-bottom: 0.5rem">ORDEN</h2>
+      <div
+        class="item px-2 scroll scrollCheckout"
+        style="border-top: 1px solid #eaeaea; padding-bottom: 10px"
+      >
+        <div class="inner-scroll">
+          <div
+            class="d-flex w-100 justify-content-between mt-3"
+            *ngFor="let item of car; let i = index; trackBy: trackByFn"
+          >
+            <div class="producto-img">
+              <img
+                loading="lazy"
+                [src]="item.img | img: item.id:'productos'"
+                class="img-fluid imgCarStyle"
+              />
+            </div>
+
+            <div class="itemCarrit d-flex flex-column pr-4">
+              <p class="mb-0 d-flex titleCarrito">{{ item.name }}</p>
+              <div class="mb-0 textCarrito d-flex">
+                <p
+                  class="
+                    product-notification
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    mb-0
+                    font-weight-bold
+                    mr-2
+                  "
+                >
+                  {{ item.quantity }} x
+                </p>
+                <p class="mb-0 ml-1 priceCar">
+                  {{ item.price * item.quantity | currency }} MXN
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="item d-flex flex-column checkTotal mt-3 pt-3"
+        style="border-top: 1px solid #eaeaea"
+      >
+        <div class="item d-flex justify-content-between">
+          <p class="textCheckT">Subtotal</p>
+          <p class="textCheckT">{{ totals.subtotal | currency }} MXN</p>
+        </div>
+
+        <div class="item d-flex justify-content-between">
+          <p class="textCheckT">Envio</p>
+          <p class="textCheckT">{{ envio | currency }} MXN</p>
+        </div>
+        <div *ngIf="totals.discount" class="d-flex justify-content-between">
+          <p class="textCheckT">Descuento</p>
+          <p style="color: #afafaf; font-weight: 400">
+            - {{ totals.discount | currency }} <small> MXN</small>
+          </p>
+        </div>
+        <div *ngIf="totals.coupon" class="d-flex justify-content-between">
+          <p class="textCheckT">Cupón {{ coupon?.porcentaje }}%</p>
+          <p style="color: #afafaf; font-weight: 400">
+            - {{ totals.coupon | currency }} <small> MXN</small>
+          </p>
+        </div>
+        <form>
+          <div class="form-group d-flex mt-2" >
+            <input
+              type="text"
+              id="cupon"
+              placeholder="CUPON"
+              [formControl]="couponControl"
+              class="form-control coupon-input text-uppercase"
+              style="height: 30px; text-indent: 10px;padding-left: 0;"
+
+            />
+            <button class="coupon-btn" (click)="changeCoupon()">APLICAR</button>
+          </div>
+        </form>
+        <div
+          class="item d-flex justify-content-between pt-4"
+          style="border-top: 1px solid #eaeaea"
+        >
+          <p style="font-weight: 700;">TOTAL</p>
+          <p style="font-weight: 700;">
+            {{ totals.total + envio | currency }} MXN
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="paying" class="cobrando-wrapper">
+  <div class="cobrando-container">
+    <span class="cobrando-title">REALIZANDO SU PEDIDO, AGUARDE PORFAVOR</span>
+  </div>
+</div>

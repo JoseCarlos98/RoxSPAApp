@@ -293,18 +293,8 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row row-imgs">
-            <div *ngFor="let producto of productos" class="col-md-3">
-              <app-product [producto]="producto"></app-product>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="ver-producto">
-        <a id="maquina" href="/html/productos.html">Ver producto</a>
+        <a id="maquina"routerLink="../products" >Ver producto</a>
       </div>
     </div>
   </div>

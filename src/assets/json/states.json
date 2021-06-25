@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Aguascalientes",
+    "id": "AGU"
+  },
+  {
+    "name": "Baja California Norte",
+    "id": "BCN"
+  },
+  {
+    "name": "Baja California Sur",
+    "id": "BCS"
+  },
+  {
+    "name": "Campeche",
+    "id": "CAM"
+  },
+  {
+    "name": "Chiapas",
+    "id": "CHP"
+  },
+  {
+    "name": "Chihuahua",
+    "id": "CHH"
+  },
+  {
+    "name": "Coahuila",
+    "id": "COA"
+  },
+  {
+    "name": "Colima",
+    "id": "COL"
+  },
+  {
+    "name": "Ciudad de México",
+    "id": "CDMX"
+  },
+  {
+    "name": "Durango",
+    "id": "DUR"
+  },
+  {
+    "name": "Guanajuato",
+    "id": "GUA"
+  },
+  {
+    "name": "Guerrero",
+    "id": "GRO"
+  },
+  {
+    "name": "Hidalgo",
+    "id": "HID"
+  },
+  {
+    "name": "Jalisco",
+    "id": "JAL"
+  },
+  {
+    "name": "Estado de México",
+    "id": "MEX"
+  },
+  {
+    "name": "Michoacán",
+    "id": "MIC"
+  },
+  {
+    "name": "Morelos",
+    "id": "MOR"
+  },
+  {
+    "name": "Nayarit",
+    "id": "NAY"
+  },
+  {
+    "name": "Nuevo León",
+    "id": "NLE"
+  },
+  {
+    "name": "Oaxaca",
+    "id": "OAX"
+  },
+  {
+    "name": "Puebla",
+    "id": "PUE"
+  },
+  {
+    "name": "Querétaro",
+    "id": "QUE"
+  },
+  {
+    "name": "Quintana Roo",
+    "id": "ROO"
+  },
+  {
+    "name": "San Luis Potosí",
+    "id": "SLP"
+  },
+  {
+    "name": "Sinaloa",
+    "id": "SIN"
+  },
+  {
+    "name": "Sonora",
+    "id": "SON"
+  },
+  {
+    "name": "Tabasco",
+    "id": "TAB"
+  },
+  {
+    "name": "Tamaulipas",
+    "id": "TAM"
+  },
+  {
+    "name": "Tlaxcala",
+    "id": "TLA"
+  },
+  {
+    "name": "Veracruz",
+    "id": "VER"
+  },
+  {
+    "name": "Yucatán",
+    "id": "YUC"
+  },
+  {
+    "name": "Zacatecas",
+    "id": "ZAC"
+  }
+]

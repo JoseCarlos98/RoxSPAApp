@@ -1,0 +1,136 @@
+<section class="contenido-car">
+  <div *ngIf="!(car && car.length > 0)" class="empty-cart">
+    <h1>Carrito vacío</h1>
+  </div>
+  <div *ngIf="car && car.length > 0" class="container">
+    <div class="row descripcion-p">
+      <div class="col-6 justify-content-start">
+        <p>PRODUCTOS</p>
+      </div>
+      <div class="col-2">
+        <p>PRECIO UNITARIO</p>
+      </div>
+      <div class="col-2">
+        <p>CANTIDAD</p>
+      </div>
+      <div class="col-2">
+        <p>PRECIO TOTAL</p>
+      </div>
+    </div>
+    <ng-container *ngFor="let item of car">
+      <div class="row row-productos">
+        <div class="col-3 img-produ">
+          <svg
+            (click)="removeItem(item)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            fill="currentColor"
+            class="bi bi-x iconoX cursor-pointer"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+          <div class="img-producto">
+            <img
+              routerLink="/products/{{ item.id }}"
+              class="cursor-pointer"
+              [src]="item.img | img: item.id:'productos'"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="col-3 info-prod justify-content-start">
+          <h1 class="cursor-pointer" routerLink="/products/{{ item.id }}">
+            {{ item.name || "-" }}
+          </h1>
+        </div>
+        <div class="off col-2 precio-prod">
+          <p *ngIf="item.discount" class="off-price">
+            {{ (item.price | currency) || "-" }}
+          </p>
+          <p>{{ (getRealPrice(item) | currency) || "-" }}</p>
+        </div>
+        <div class="col-2">
+          <div class="add-producto acom">
+            <div class="cursor-pointer" (click)="subQty(item)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-dash-lg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"
+                />
+              </svg>
+            </div>
+            <div>
+              <p>{{ item.quantity || 0 }}</p>
+            </div>
+            <div class="cursor-pointer" (click)="addQty(item)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-plus-lg"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 precio-prod">
+          <p>
+            {{
+              ((getRealPrice(item) || 0) * (item.quantity || 0) | currency) ||
+                "-"
+            }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+    <br /><br />
+    <div class="row">
+      <div class="col-md-6 p-0">
+      </div>
+      <div class="p-0 col-md-6 d-flex justify-content-xl-end">
+        <div class="pagar">
+          <div class="info-total">
+            <div class="sub-total">
+              <p>Subtotal</p>
+              <p>{{ totals.subtotal | currency }}</p>
+            </div>
+            <div *ngIf="totals.discount" class="envio sub-total">
+              <p>Descuento</p>
+              <p>-{{ totals.discount | currency }}</p>
+            </div>
+            <div *ngIf="coupon && coupon.porcentaje && totals.coupon" class="coupon sub-total">
+              <p>COUPON ROX SPA {{ coupon.porcentaje  }}%</p>
+              <p>
+                -{{
+                  totals.coupon | currency
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="car-total">
+            <p>TOTAL</p>
+            <P>{{ totals.total | currency }}</P>
+          </div>
+          <div routerLink="/checkout" class="btn-checkout">
+            <h2>CHECKOUT</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

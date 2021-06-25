@@ -6,15 +6,19 @@ import { AllProductsComponent } from './pages/all-products/all-products.componen
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { SwiperModule } from 'swiper/angular';
 import { ProductModule } from 'src/app/shared/components/product/product.module';
-import { CarComponent } from './pages/car/car.component';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { QuillModule } from 'ngx-quill';
+
 
 @NgModule({
-  declarations: [AllProductsComponent, ProductDetailComponent, CarComponent],
+  declarations: [AllProductsComponent, ProductDetailComponent],
   imports: [
     CommonModule,
     AllProductsRoutingModule,
     SwiperModule,
     ProductModule,
+    PipesModule,
+    QuillModule.forRoot(),
   ],
 })
 export class AllProductsModule {}

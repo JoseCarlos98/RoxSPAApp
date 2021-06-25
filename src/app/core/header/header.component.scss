@@ -14,3 +14,34 @@
     align-items: center;
   }
 }
+.car-articulos {
+  overflow: auto;
+}
+
+.articulos-wrapper {
+  max-height: 290px;
+  overflow-y: scroll;
+}
+
+.articulo-image{
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.car-count{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: var(--rosa);
+  font-size: 9px;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  right: -5px;
+  top: -5px;
+}
+.icono-car{
+  position: relative;
+}

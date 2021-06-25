@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ApiService } from 'src/app/core/services/api.service';
 import { Producto } from 'src/app/shared/models/Producto.model';
 
 @Component({
@@ -6,33 +10,31 @@ import { Producto } from 'src/app/shared/models/Producto.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  constructor() {}
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(private _api: ApiService, private _toastr: ToastrService) {}
 
-  public productos: Producto[] = [
-    {
-      id: 1,
-      nombre: 'Producto chafaaghjsbvdkuyasgdigasidfgiasgdiuasgidgasi dgaosydyasvdyasv douvasilodvalsidvipas',
-      descuento: 0.3,
-      precio: 150,
-    },
-    {
-      id: 2,
-      nombre: 'Producto chafa 2',
-      precio: 200,
-    },
-    {
-      id: 3,
-      nombre: 'Producto chafa 3',
-      precio: 320,
-    },
-    {
-      id: 4,
-      nombre: 'Producto chafa 2',
-      precio: 120,
-      descuento: 0.4,
-    },
-  ];
+  private onDestroy = new Subject<any>();
 
-  ngOnInit(): void {}
+  public productos: Producto[] = [];
+
+  ngOnInit(): void {
+    this.getProductos();
+  }
+
+  ngAfterViewInit(): void {}
+
+  getProductos() {
+    let parametros = JSON.stringify({ limit: 8 });
+    this._api.Productos.getProductosRandom({ parametros })
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(
+        (productos: any) => (this.productos = productos),
+        (err) => this._toastr.error('Verifique su conexión', 'Sin conexión')
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.unsubscribe();
+  }
 }

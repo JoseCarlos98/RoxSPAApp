@@ -9,7 +9,7 @@
         <div class="row cont-detail">
             <div class="col-md-5">
                 <div class="img-detalles">
-                    <img src="../../../../../assets/img/productoDetalle.jpg" alt="" />
+                    <img loading="lazy" class="imagen-principal" [src]="image | img:producto.id:'productos'" alt="" />
                 </div>
                 <div class="carrucel">
                     <div class="carrucel-principal">
@@ -19,7 +19,9 @@
 
                         <div class="carrucel-lista">
                           <ng-container *ngFor="let archivo of producto.archivos">
-                            <img *ngIf="!archivo.esPrincipal" class="img-carrucel" src="../../../../../assets/img/{{archivo.uuid}}" alt="" />
+                            <div (click)="image = archivo.uuid || ''" class="img-carrucel cursor-pointer">
+                              <img loading="lazy" class="" [src]="archivo.uuid | img:producto.id:'productos'" alt="" />
+                            </div>
                           </ng-container>
                         </div>
 
@@ -32,9 +34,11 @@
             <div class="col-md-6">
                 <div class="detalle-info">
                     <!-- <h1>GUERLAIN</h1> -->
-                    <h2>{{producto.nombre}} <span>{{producto.precio | currency}}</span></h2>
+                    <h1>{{producto.nombre}} </h1>
+                    <h2>{{producto.descripcionCorta}} </h2>
+                    <span>{{producto.precio | currency}}</span>
                     <h3>DESCRIPCIÓN</h3>
-                    <p>{{producto.descripcion}}</p>
+                    <quill-view [content]="producto.descripcion" format="object" theme="snow"></quill-view>
                     <div class="add-producto">
                         <div class="cursor-pointer" (click)="subQty()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">

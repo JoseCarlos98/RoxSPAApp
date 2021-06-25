@@ -1,0 +1,138 @@
+.btnPaying {
+  opacity: 50%;
+  cursor: not-allowed;
+}
+.couponed {
+  text-decoration: line-through;
+  color: darkgray;
+}
+.inner-scroll {
+  max-height: 250px !important;
+  height: auto !important;
+  overflow-y: auto !important;
+}
+.scroll {
+  height: auto;
+}
+/* .scroll{
+  max-height: 23rem!important;
+  overflow-y: auto;
+} */
+::ng-deep .ng-select-container {
+  background-color: #ffffff !important;
+  vertical-align: middle !important;
+  background-size: 8px 10px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0px !important;
+}
+::ng-deep .menu.fixed-top {
+  background-color: #111111;
+}
+.itemWidthForm {
+  width: 86%;
+}
+.inputCanje {
+  width: 350px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #f1f3f4;
+  background-color: #f6f7f8;
+  color: #262626;
+  font-family: "Roboto", sans-serif;
+}
+.labelInput {
+  color: var(--rosa);
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+}
+label {
+  position: initial;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.formwMovil {
+  width: 350px;
+}
+.pay-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pay-btn {
+  background-color: var(--rosa-claro);
+  color: var(--cremoso);
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 0;
+  width: 100%;
+  transition: all 0.5s;
+  &:hover {
+    background-color: var(--rosa);
+  }
+}
+
+.coupon-btn {
+  width: auto;
+  border-radius: 0px 5px 5px 0;
+  padding: 0px 5px;
+  font-size: 12px;
+  width: 100px;
+  @extend .pay-btn;
+}
+.coupon-input {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.textCheckT{
+  margin-bottom: 10px;
+}
+.producto-img {
+  height: 100px;
+  width: 100px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+  }
+}
+
+.cobrando-wrapper {
+  z-index: 10000;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.37);
+  cursor: wait;
+  .cobrando-container {
+    background-color: var(--cremoso);
+    height: 100px;
+    border-radius: 5px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .cobrando-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}
+
+.cobrando-state{
+  overflow-x:hidden;
+  overflow-y: hidden;
+}
+
+::placeholder{
+  font-size: 12px;
+  padding: 0;
+}
