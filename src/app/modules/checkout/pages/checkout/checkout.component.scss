@@ -61,7 +61,6 @@ label {
   gap: 8px;
 }
 .pay-btn {
-  background-color: var(--rosa-claro);
   color: var(--cremoso);
   cursor: pointer;
   font-weight: 600;
@@ -70,9 +69,10 @@ label {
   padding: 5px 0;
   width: 100%;
   transition: all 0.5s;
-  &:hover {
-    background-color: var(--rosa);
-  }
+  background-color: var(--rosa);
+}
+.btn-disabled{
+  background-color: var(--rosa-claro);
 }
 
 .coupon-btn {
@@ -87,7 +87,7 @@ label {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
-.textCheckT{
+.textCheckT {
   margin-bottom: 10px;
 }
 .producto-img {
@@ -104,7 +104,7 @@ label {
   z-index: 10000;
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -127,12 +127,24 @@ label {
   }
 }
 
-.cobrando-state{
-  overflow-x:hidden;
+.cobrando-state {
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
-::placeholder{
+::ng-deep .stop-scrolling {
+  height: 100%;
+  // overflow: hidden;
+}
+
+.titleCompra{
+  font-size: 20px!important;
+  font-weight: 600!important;
+
+}
+
+::placeholder {
   font-size: 12px;
   padding: 0;
 }
+

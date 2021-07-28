@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { ApiService } from './api.service';
 import { Producto } from 'src/app/shared/models/Producto.model';
 import { Descuento } from 'src/app/shared/models/Descuento.model';
 import { ToastrService } from 'ngx-toastr';
+import { Servicio } from 'src/app/shared/models/Servicio.model';
+
+enum types {
+  'product',
+  'service',
+}
 
 export type CarItem = {
   id: number;
@@ -14,6 +20,7 @@ export type CarItem = {
   discount?: number;
   info?: string;
   img?: string;
+  type: keyof typeof types;
 };
 
 @Injectable({
@@ -54,10 +61,9 @@ export class CarService {
     verify: (updated?: boolean) => {
       let coupon = this.Coupon.get();
       if (!coupon || Object.keys(coupon).length <= 0) return;
-      console.log(coupon);
       this._api.Descuentos.verificar({ codigo: coupon.codigo }).subscribe(
-        (discount) => {
-          if (!discount) {
+        (discount:any) => {
+          if (!discount || !discount.valido) {
             discount = {};
             this._toastr.error(
               `El cupón "${coupon.codigo}" ha expirado o no existe.`,
@@ -81,9 +87,11 @@ export class CarService {
     },
   };
   public Item = {
-    find: (id: number) => {
+    find: (id: number, type: keyof typeof types) => {
       try {
-        return this.car$.value.find((item) => item.id === id);
+        return this.car$.value.find(
+          (item) => item.id === id && item.type === type
+        );
       } catch (error) {
         return undefined;
       }
@@ -98,10 +106,12 @@ export class CarService {
         return undefined;
       }
     },
-    update: (item: CarItem) => {
+    update: (item: CarItem, type: keyof typeof types) => {
       try {
         let car = this.Car.get();
-        let foundedItem = car.findIndex((fItem) => item.id === fItem.id);
+        let foundedItem = car.findIndex(
+          (fItem) => item.id === fItem.id && fItem.type === type
+        );
         if (foundedItem === -1) {
           car.push(item);
         } else {
@@ -114,10 +124,12 @@ export class CarService {
         return undefined;
       }
     },
-    remove: (itemId: number) => {
+    remove: (itemId: number, type: keyof typeof types) => {
       try {
         let car = this.Car.get();
-        let foundedItem = car.findIndex((fItem) => itemId === fItem.id);
+        let foundedItem = car.findIndex(
+          (fItem) => itemId === fItem.id && fItem.type === type
+        );
         if (foundedItem !== -1) {
           car.splice(foundedItem, 1);
         }
@@ -188,33 +200,62 @@ export class CarService {
     },
     verify: () => {
       let car = this.Car.get();
-      let ids = car.map((carItem) => carItem.id);
-      let filters = { id: { in: ids } };
+      let ids = {
+        products: car
+          .filter((item) => item.type === 'product')
+          .map((item) => item.id),
+        services: car
+          .filter((item) => item.type === 'service')
+          .map((item) => item.id),
+      };
+
+      let filters = {
+        products: { id: { in: ids.products } },
+        services: { id: { in: ids.services } },
+      };
+
       let newCar: CarItem[] = [];
-      this._api.Productos.getAdvanced({
-        filters: JSON.stringify(filters),
-      }).subscribe((productos: any) => {
-        productos.forEach((producto: Producto) => {
-          car.some((carItem) => {
-            if (carItem.id === producto.id && (producto.stock || 0) > 0) {
-              let quantity =
-                carItem.quantity > (producto.stock || 0)
-                  ? producto.stock
-                  : carItem.quantity;
-              newCar.push({
-                id: producto.id,
-                name: producto.nombre || '',
-                price: producto.precio || 0,
-                quantity: quantity || 0,
-                discount: producto.descuento,
-                img: producto.archivos?.find((ele) => ele.esPrincipal)?.uuid,
-                info: producto.descripcion,
-              });
-            }
-          });
-        });
+      let productos$ = this._api.Productos.getAdvanced({
+        filters: JSON.stringify(filters.products),
+      });
+      let servicios$ = this._api.Servicios.getAdvanced({
+        filters: JSON.stringify(filters.services),
+      });
+      forkJoin([productos$, servicios$]).subscribe((res: any[]) => {
+        let productos = res[0];
+        let servicios = res[1];
+        newCar = newCar.concat(this.verifyItems(productos, car, 'product'));
+        newCar = newCar.concat(this.verifyItems(servicios, car, 'service'));
         this.Car.update(newCar);
       });
     },
   };
+
+  private verifyItems(items: any[], car: CarItem[], type: keyof typeof types) {
+    let newCar: CarItem[] = [];
+    car = car.filter((item) => item.type === type);
+    items.forEach((item: Producto) => {
+      let itemFound = car.find((carItem) => carItem.id === item.id);
+      if (itemFound) {
+        try {
+          if (type === 'product' && !((item.stock || 0) > 0)) throw 'no stock';
+          let quantity = itemFound.quantity;
+          if (type === 'product')
+            quantity =
+              quantity > (item.stock || 0) ? item.stock || 0 : quantity;
+          newCar.push({
+            id: item.id || 0,
+            name: item.nombre || '',
+            price: item.precio || 0,
+            quantity: quantity || 0,
+            discount: item.descuento,
+            img: item.archivos?.find((ele) => ele.esPrincipal)?.uuid,
+            info: item.descripcion,
+            type: type,
+          });
+        } catch (error) {}
+      }
+    });
+    return newCar;
+  }
 }

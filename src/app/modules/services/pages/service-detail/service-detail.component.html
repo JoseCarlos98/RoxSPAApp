@@ -1,0 +1,100 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+
+<section>
+    <div class="container">
+        <div class="row cont-detail">
+            <div class="col-md-5">
+                <div class="img-detalles">
+                    <img loading="lazy" class="imagen-principal" [src]="image | img:servicio.id:'servicios'" alt="" />
+                </div>
+                <div class="carrucel">
+                    <div class="carrucel-principal">
+                        <svg aria-label="anterior" class="anterior" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+
+                        <div class="carrucel-lista">
+                          <ng-container *ngFor="let archivo of servicio.archivos">
+                            <div (click)="image = archivo.uuid || ''" class="img-carrucel cursor-pointer">
+                              <img loading="lazy" class="" [src]="archivo.uuid | img:servicio.id:'servicios'" alt="" />
+                            </div>
+                          </ng-container>
+                        </div>
+
+                        <svg aria-label="siguiente" class="siguiente" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detalle-info">
+                    <h1>{{servicio.nombre}} </h1>
+                    <h2>{{servicio.descripcionCorta}} </h2>
+                    <span class="detalle-descuento" *ngIf="servicio.descuento">CON DESCUENTO DEL {{servicio.descuento | percent }}</span>
+                    <div class="detalle-precio">
+                      <span
+                        *ngIf="servicio.descuento"
+                        [ngClass]="{ offerta: servicio.descuento }"
+                        >{{ servicio.precio | currency }}</span
+                      >
+                      <span [ngClass]="{ precio: servicio.descuento }">{{
+                        realPrice | currency
+                      }}</span>
+                    </div>
+                    <h3>DESCRIPCIÓN</h3>
+                    <quill-view [content]="servicio.descripcion" format="object" theme="snow"></quill-view>
+
+                    <div class="add-producto">
+                        <div class="cursor-pointer" (click)="subQty()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="no-select">{{quantityControl.value}}</p>
+                        </div>
+                        <div class="cursor-pointer" (click)="addQty()" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="btns-details">
+                        <div (click)="buy()" class="btn1 cursor-pointer">
+                            <div class="relleno"></div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                                </svg>
+                            </div>
+                            <p class="art">COMPRAR ARTÍCULO</p>
+                        </div>
+                        <div (click)="addCar()" class="btn1 cursor-pointer">
+                            <div class="relleno"></div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                </svg>
+                            </div>
+                            <p class="art">AGREGAR AL CARRITO</p>
+                        </div>
+                    </div>
+                    <div class="criterio">
+                        <p><u> Se pueden aplicar restricciones y deberes de envío</u></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br><br>
+<br>
+
+<!-- <app-product-detail></app-product-detail> -->

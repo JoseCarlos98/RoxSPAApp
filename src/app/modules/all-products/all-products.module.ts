@@ -8,6 +8,7 @@ import { SwiperModule } from 'swiper/angular';
 import { ProductModule } from 'src/app/shared/components/product/product.module';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { QuillModule } from 'ngx-quill';
+import { ContactModule } from 'src/app/shared/components/contact/contact.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { QuillModule } from 'ngx-quill';
     ProductModule,
     PipesModule,
     QuillModule.forRoot(),
+    ContactModule
   ],
 })
 export class AllProductsModule {}

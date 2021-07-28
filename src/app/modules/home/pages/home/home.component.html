@@ -100,7 +100,7 @@
       recusandae nobiss
     </p>
     <div class="cont-btnComprar">
-      <a href="">Comprar ya</a>
+      <a href="" routerLink="../products">Comprar ya</a>
     </div>
   </div>
 </div>
@@ -125,7 +125,7 @@
           </div>
           <br />
           <div class="conoce">
-            <a class="conocea" href="./html/nosotros.html"
+            <a class="conocea" routerLink="about"
               >Conoce más
               <span
                 ><svg
@@ -286,7 +286,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row row-imgs">
-            <div *ngFor="let producto of productos" class="col-md-3">
+            <div *ngFor="let producto of productos" class="container-product ">
               <app-product [producto]="producto"></app-product>
             </div>
           </div>
@@ -294,12 +294,11 @@
       </div>
 
       <div class="ver-producto">
-        <a id="maquina"routerLink="../products" >Ver producto</a>
+        <a id="maquina"routerLink="../products" >VER PRODUCTOS</a>
       </div>
     </div>
   </div>
 </div>
-<br />
 <div class="seccion4">
   <div class="container">
     <div class="row">
@@ -314,7 +313,7 @@
           </p>
           <br />
           <div class="conoce a">
-            <a class="conocea" href=""
+            <a class="conocea" href="" routerLink="machines"
               >Conoce más
               <span
                 ><svg
@@ -363,63 +362,5 @@
     </div>
   </div>
 </div>
-<br />
-<div class="container-fluid contacto" id="contacto">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6"></div>
-      <div class="col-md-6">
-        <div class="c-formulario">
-          <div class="col-12 contenedor-somos" style="height: auto">
-            <h2 style="margin: 0">¿Te interesa hacer una cita?</h2>
-            <h1
-              style="
-                color: #3c3c3c;
-                line-height: 60px;
-                font-size: 48px;
-                color: #212121;
-              "
-            >
-              Contáctanos
-            </h1>
-            <br />
-            <form novalidate>
-              <div class="group">
-                <input class="inputext" id="name" type="text" required />
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="input-descripcion">Nombre</label>
-              </div>
-              <div class="group">
-                <input class="inputext" id="email" type="text" required />
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="input-descripcion">Email</label>
-              </div>
-              <div class="group" style="padding-top: 30px">
-                <textarea
-                  class="inputext"
-                  id="message"
-                  name=""
-                  cols="5"
-                  rows="2"
-                ></textarea>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="input-descripcion">Mensaje</label>
-              </div>
-              <div>
-                <a
-                  class="btn-enviar"
-                  id="sendMessageButton"
-                  onclick="enviarmail()"
-                  >ENVIAR</a
-                >
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+<app-contact></app-contact>

@@ -92,6 +92,9 @@ html{
   justify-content: space-evenly;
   align-items: center;
 }
+.redes a{
+  color: unset!important
+}
 
 .redes svg:hover{
   color: #E86A6A;
@@ -339,7 +342,7 @@ html{
 .contenedor-somos h2{
   margin: 0;
   font-size: 18px ;
-  color: var(--rosa-claro);
+  color: var(--rosa);
 }
 
 .contenedor-somos p{
@@ -428,6 +431,23 @@ html{
   -ms-transition: 1s all ease!important;
   -o-transition: 1s all ease;
 }
+
+.img-maquina {
+  background-image: url('./assets/img/newmaquina1.png');
+  width: 100%;
+  height: 380px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 1s all ease!important;
+  -webkit-transition: 1s all ease!important;
+  -o-transition: 1s all ease!important;
+  -moz-transition: 1s all ease!important;
+  -ms-transition: 1s all ease!important;
+  -o-transition: 1s all ease;
+  overflow: hidden;
+}
+
 .img-servicio2 {
   background-image: url('./assets/img/servicio2.png');
   width: 100%;
@@ -442,9 +462,25 @@ html{
   -ms-transition: 1s all ease;
   -o-transition: 1s all ease;
 }
+.img-maquina2 {
+  background-image: url('./assets/img/maquinas.jpg');
+  width: 100%;
+  height: 380px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  -o-transition: 1s all ease!important;
+  transition: 1s all ease!important;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease;
+}
 
 .p-img{
-  padding-right: 0;
+  // padding-right: 0;
+  padding: 0!important;
+  overflow: hidden;
 }
 
 .p-info{
@@ -452,6 +488,20 @@ html{
 }
 .img-servicio3 {
   background-image: url('./assets/img/servicio3.png');
+  width: 100%;
+  -o-transition: 1s all ease!important;
+  height: 380px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 1s all ease!important;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease;
+}
+.img-maquina3 {
+  background-image: url('./assets/img/newmaquina3.png');
   width: 100%;
   -o-transition: 1s all ease!important;
   height: 380px;
@@ -478,8 +528,36 @@ html{
   -o-transition: 1s all ease!important;
   -o-transition: 1s all ease;
 }
+.img-maquina4 {
+  background-image: url('./assets/img/maquina4.png');
+  width: 100%;
+  height: 380px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 1s all ease!important;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease!important;
+  -o-transition: 1s all ease;
+}
 .img-servicio5 {
   background-image: url('./assets/img/servicio5.png');
+  width: 100%;
+  height: 380px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 1s all ease!important;
+  -webkit-transition: 1s all ease!important;
+  -moz-transition: 1s all ease!important;
+  -ms-transition: 1s all ease!important;
+  -o-transition: 1s all ease!important;
+  transition: 1s all ease!important;
+}
+.img-maquina5 {
+  background-image: url('./assets/img/maquina5.png');
   width: 100%;
   height: 380px;
   background-size: cover;
@@ -507,20 +585,26 @@ html{
 
 .c-info{
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  padding-left: 110px;
   align-items: center;
   height: 380px;
 }
 
-.fondo2::before{
-  content: "";
-  width: 100%;
-  height: 100%;
-  opacity: 20%;
-  background: #62BB46;
-  position: absolute;
-  left: auto;
-  top: 0;
+// .fondo2::before{
+//   content: "";
+//   width: 100%;
+//   height: 100%;
+//   opacity: 20%;
+//   background: #62BB46;
+//   position: absolute;
+//   left: auto;
+//   top: 0;
+// }
+
+.hm{
+  overflow: hidden;
+  height: 380px;
 }
 
 .hover1:hover .img-servicio{
@@ -532,11 +616,27 @@ html{
   -ms-transition: 1s all ease;
   -o-transition: 1s all ease;
 }
+.hover1:hover .img-maquina{
+  transition: 1s all ease!important;
+  height: 105%;
+  -webkit-transition: 1s all ease!important;
+  -moz-transition: 1s all ease!important;
+  -ms-transition: 1s all ease!important;
+  -o-transition: 1s all ease!important;
+}
 
 .hover2:hover .img-servicio2{
   transition: 1s all ease!important;
   width: 110%;
   background-position-x: -40px!important;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease;
+}
+.hover2:hover .img-maquina2{
+  transition: 1s all ease!important;
+  height: 105%;
   -webkit-transition: 1s all ease;
   -moz-transition: 1s all ease;
   -ms-transition: 1s all ease;
@@ -552,6 +652,14 @@ html{
   -ms-transition: 1s all ease;
   -o-transition: 1s all ease;
 }
+.hover3:hover .img-maquina3{
+  transition: 1s all ease!important;
+  height: 105%;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease;
+}
 
 .hover4:hover .img-servicio4{
   transition: 1s all ease!important;
@@ -562,11 +670,27 @@ html{
   -ms-transition: 1s all ease;
   -o-transition: 1s all ease;
 }
+.hover4:hover .img-maquina4{
+  transition: 1s all ease!important;
+  height: 105%;
+  -webkit-transition: 1s all ease;
+  -moz-transition: 1s all ease;
+  -ms-transition: 1s all ease;
+  -o-transition: 1s all ease;
+}
 
 .hover5:hover .img-servicio5{
   transition: 1s all ease!important;
   width: 110%;
   background-position-x: -40px!important;
+  -webkit-transition: 1s all ease!important;
+  -moz-transition: 1s all ease!important;
+  -ms-transition: 1s all ease!important;
+  -o-transition: 1s all ease!important;
+}
+.hover5:hover .img-maquina5{
+  transition: 1s all ease!important;
+  height: 105%;
   -webkit-transition: 1s all ease;
   -moz-transition: 1s all ease;
   -ms-transition: 1s all ease;
@@ -596,9 +720,13 @@ html{
   font-size: 14px;
   color: #3C3C3C;
 }
+.machine{
+  min-height: 500px!important;
+  height: auto;
+}
 
 .seccion3{
-  min-height: 3340px;
+  height: auto;
   width: 100%;
   background: #F7F7F7;
   padding-top: 100px;
@@ -608,6 +736,7 @@ html{
 
 .p-l{
   padding-left: 0!important;
+  overflow: hidden;
   position: relative;
 }
 
@@ -885,7 +1014,7 @@ html{
   background-image: url('./assets/img/maquinasBg.jpg');
   background-repeat: no-repeat;
   background-position: right;
-  background-size: 60%;
+  background-size: 62%;
 }
 
 .fondo-maquina{
@@ -1315,7 +1444,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   color: #E86A6A!important;
 }
 
-.sin-M{
+.sin-margin{
   margin: 0;
   margin-top: 10px;
 }
@@ -1340,7 +1469,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   height: 1200px;
   background: #212121;
   padding-top: 130px;
-  margin: 200px 0;
+  margin: 50px 0;
 }
 .seccion3N .p-titulo{
   margin-bottom: 70px;
@@ -1372,10 +1501,28 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 /* PRODUCTOS  */
 
+.seccion1M{
+  width: 100%;
+  background: #FFFFFF;
+  // height: 720px;
+  background-size: 60%;
+  background-image: url('./assets/img/topMaquinas.png');
+  background-repeat: no-repeat;
+  background-position: inherit;
+}
+.seccion1S{
+  width: 100%;
+  background: #FFFFFF;
+  background-image: url('./assets/img/top_servicios.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .seccion1P{
   width: 100%;
   background: #FFFFFF;
-  height: 720px;
+  // height: 720px;
   background-size: 60%;
   background-image: url('./assets/img/productosTop.jpg');
   background-repeat: no-repeat;
@@ -1383,7 +1530,8 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .rowP{
-  height: 720px;
+  height: 500px;
+  margin-bottom: 50px;
 }
 
 
@@ -1391,6 +1539,14 @@ textarea:focus ~ label, input:valid ~ label 		{
   width: 570px;
   height: 400px;
   background: var(--cremoso);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.infoS{
+  width: 570px;
+  height: 400px;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1420,6 +1576,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .productosP{
   width: 100%;
+  margin-bottom: 30px;
   // min-height: 1900px;
   // height: 100%;
   height: auto;
@@ -1427,7 +1584,8 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .card-categoria{
   background: var(--cremoso);
-  height: 380px;
+  min-height: 380px;
+  height: auto;
   padding: 10px 25px!important;
   display: flex;
   flex-direction: column;
@@ -1534,6 +1692,13 @@ textarea:focus ~ label, input:valid ~ label 		{
   align-items: stretch;
   border: 1px solid #A8A8A8;
 
+}
+
+.container-product{
+  width: 25%!important;
+}
+.container-product2{
+  width: 33%!important;
 }
 .img-detalles img{
   width: 90%;
@@ -1760,8 +1925,8 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 .info-prod h1{
-
-    font-size: 16px;
+    text-align: center;
+    font-size: 12px;
     font-family: var(--montserrat);
     color: #3C3C3C;
 }
@@ -1800,6 +1965,9 @@ textarea:focus ~ label, input:valid ~ label 		{
     margin: 0;
     font-size: 16px;
     color: #6D6E70;
+}
+.off{
+  gap: unset!important;
 }
 
 .tutilo p {
@@ -1887,7 +2055,7 @@ textarea:focus ~ label, input:valid ~ label 		{
 
 .confirmation{
   width: 100%;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 135px);
   display: flex;
   align-items: center
 }
@@ -1943,9 +2111,214 @@ textarea:focus ~ label, input:valid ~ label 		{
 }
 
 
+.c-cards{
+  width: 75%;
+  height: auto;
+} 
+
+.radio{
+  width: 30%;
+  padding: 8px;
+  height: 150px;
+  background: #F1F3F4;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  border: 2px solid #F1F3F4;
+}
+
+.radio:hover{
+  background: #E86A6A30;
+  border: 2px solid var(--rosa);
+}
+.selected-radio{
+  background: #E86A6A50;
+  border: 2px solid var(--rosa);
+}
+
+
+
+.radio div{
+  display: flex;
+    align-items: center;
+    width: 100%;
+}
+.radio i{
+  font-size: 60px;
+  margin: auto;
+  transition: all 0.2s ease;
+
+}
+.radio svg{
+  transition: all 0.2s ease;
+  width: 110px;
+  margin: auto;
+  fill: #212529;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+
+.radio:hover svg{
+    fill: var(--rosa);
+  }
+.radio div label{
+  transition: all 0.2s ease;
+}
+.radio:hover div label{
+  color: var(--rosa);
+}
+.radio:hover i{
+  color: var(--rosa);
+}
+
+.radiopago{
+  width: 30px;
+}
+
+.acomodo-pago{
+    width: 100%;
+}
+
+.cards-services{
+  height: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+.cards-services .services-card{
+  width: 32%;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.card1{
+  background: #3C3C3C;
+}
+
+.card2{
+  background:var(--rosa);
+}
+
+.card3{
+  background: #FAF2D9;
+}
+
+.rosa h1, .rosa p{
+  color: var(--rosa);
+}
+.card-info{
+  text-align: center;
+  color: white;
+  height: 120px;
+  width: 80%;
+  padding-top: 20px;
+  margin: auto;
+}
+.capa{
+  position: absolute;
+  width: 100%;
+  height: 100%; 
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #3C3C3C60;
+}
+.capa:hover{
+  opacity: 0;
+}
+.capa-estudio{
+  background: #E86A6A60;
+}
+
+.capa-uñas{
+background: #FAF2D960;
+}
+
+.card-info h1{
+  font-size: 24px;
+  font-weight: 700;
+}
+.card-info p{
+  font-size: 13px;
+}
+.spa{
+  background: url("assets/img/spa.jpg") no-repeat center / cover;
+}
+.estudio{
+  background: url("assets/img/estudio.jpg") no-repeat center / cover;
+}
+.uñas{
+  background: url("assets/img/uñas.jpg") no-repeat center / cover;
+}
+
+.card-fondo{
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  transition: 300ms all ease;
+  -webkit-transition: 300ms all ease;
+  -moz-transition: 300ms all ease;
+  -ms-transition: 300ms all ease;
+  -o-transition: 300ms all ease;
+}
+
+.card-fondo:hover{
+  width: 110%;
+  background-position-x: -20px !important;
+}
+
 
 
 @media screen and (max-width: 800px) {
+
+  .c-cards{
+    width: 100%!important;
+  } 
+
+  .radio {
+    width: 30%;
+    height: 125px;
+
+  }
+  .radio i{
+    font-size: 40px;
+  }
+  .radio svg{
+    width: 70px;
+  }
+  .cards-services{
+    flex-direction: column;
+    height: auto;
+  }
+  .services-card{
+    width: 90%!important;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  
+  .acomodo-pago{
+    margin: auto;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: auto;
+    align-items: start!important;
+
+  }
+
+
   .img-prod{
     width: 60px;
     margin-left: 0;
@@ -1961,6 +2334,9 @@ textarea:focus ~ label, input:valid ~ label 		{
     font-size:10px;
   }
 
+  .precio-prod {
+    flex-direction: column;
+  }
   .precio-prod p{
     font-size: 10px;
   }
@@ -2000,6 +2376,13 @@ textarea:focus ~ label, input:valid ~ label 		{
       color: var(--rosa);
       line-height: 52px;
   }
+  .h-p{
+    height: auto;
+  }
+  .infoS{
+    width: 90%;
+    margin: auto;
+  }
 
   .cont-btnComprar{
       margin: auto;
@@ -2022,6 +2405,9 @@ textarea:focus ~ label, input:valid ~ label 		{
   .flechas{
       display: unset!important;
   }
+  .seccion1M{
+    background: none;
+  }
 
   .img{
       display: unset!important;
@@ -2031,7 +2417,8 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
 
   .presentacion-fondo{
-      height: auto;
+      height: 400px!important;
+      min-height: unset;
   }
   .seccion1{
       height: 100vh;
@@ -2050,11 +2437,10 @@ textarea:focus ~ label, input:valid ~ label 		{
       padding: 10px;
       margin: 0;
   }
-
   .contenedor-somos p{
-      width: 80%;
-      margin: auto;
+    font-size: 16px;
   }
+
   .conoce{
       margin: auto;
   }
@@ -2083,8 +2469,8 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
   .largo{
       /* width: 50%!important; */
-      width: 166px!important;
-      height: 286px!important;
+      width: 100%!important;
+      height: auto!important;
       margin-bottom: 15px;
       box-shadow: 0px 0px 15px -11.8px rgb(0 0 0 / 10%);
   }
@@ -2104,21 +2490,11 @@ textarea:focus ~ label, input:valid ~ label 		{
       background: none;
   }
 
-  .img-servicio{
+  .img-servicio, .img-servicio2, .img-servicio3, .img-servicio4, .img-servicio5,
+  .img-maquina, .img-maquina2, .img-maquina3, .img-maquina4, .img-maquina5{
       display: none;
   }
-  .img-servicio2{
-      display: none;
-  }
-  .img-servicio3{
-      display: none;
-  }
-  .img-servicio4{
-      display: none;
-  }
-  .img-servicio5{
-      display: none;
-  }
+ 
   .row-imgs{
       justify-content: space-evenly!important;
   }
@@ -2129,6 +2505,10 @@ textarea:focus ~ label, input:valid ~ label 		{
 
   .c-info{
       text-align: center;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
   }
   .c-formulario{
       width: 100%;
@@ -2160,7 +2540,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
 
   .seccion2N{
-      height: 1500px;
+      height: auto;
   }
 
   .imgN3{
@@ -2171,6 +2551,10 @@ textarea:focus ~ label, input:valid ~ label 		{
       width: 100%;
       position: absolute;
       left: 0;
+  }
+
+  .pagar{
+    width: 100%;
   }
 
   .seccion3N{
@@ -2198,7 +2582,7 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
 
   .seccion1P{
-      background-size: 100%;
+    background: none;    
   }
   .col-detail{
     height: auto!important;
@@ -2206,10 +2590,14 @@ textarea:focus ~ label, input:valid ~ label 		{
   .cont-detail{
     height: auto;
   }
+  .ql-editor{
+    margin-bottom: 40px;
+  }
 
 
   .img-detalles{
     height: auto;
+    width: 100%;
   }
 
   .btn1 p{
@@ -2241,7 +2629,12 @@ textarea:focus ~ label, input:valid ~ label 		{
   }
 
   .btn1{
-    width: 45%;
+    width: 47%;
+  }
+
+  .ql-container.ngx-quill-view{
+    width: 80%!important;
+    margin: auto!important;
   }
 
   .criterio {
@@ -2261,10 +2654,50 @@ textarea:focus ~ label, input:valid ~ label 		{
   .info-confirmation div{
       width: 100%;
   }
+  
 
   .info-confirmation img{
       width: 100%;
   }
+  // CHECKOUT 
+  .itemWidthForm, .inputCanje, .formwMovil, .info-card{
+    width: 100%!important
+  }
+  .titleCompra{
+    text-align: center;
+    margin: 10px 0;
+    font-size: 30px!important;
+    line-height: 52px;
+    font-weight: bold;
+  }
+ 
+  .total{
+    width: 100%;
+  }
+  .image-producto{
+    width: 100%!important;
+  }
+ 
+  .discount, .info-p h1{
+    font-size: 14px!important;
+  }
+  .container-product, .container-product2{
+    width: 50%!important;
+  }
+  .contactanos{
+    font-size: 27px;
+  }
+  .contenedor-somos h2{
+    font-size: 30px;
+  }
+
+}
+
+.itemCarrit, .producto-img{
+  width: 45%!important;
+}
+.info-card{
+  width: 75%;
 }
 
 .selected-route{
@@ -2282,3 +2715,12 @@ textarea:focus ~ label, input:valid ~ label 		{
 .ql-editor{
   padding: 0!important;
 }
+
+.contactanos{
+  color: #3c3c3c!important;
+  line-height: 60px;
+  font-size: 48px;
+  // color: #212121;
+
+}
+

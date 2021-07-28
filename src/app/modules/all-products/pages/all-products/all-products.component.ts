@@ -1,6 +1,14 @@
+import { Location } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { Subject } from 'rxjs';
 import { count, takeUntil } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -18,9 +26,10 @@ export class AllProductsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private _api: ApiService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _location: Location
   ) {}
-
+  @ViewChild('seccionProductos') seccionProductos!: ElementRef<HTMLElement>;
   private onDestroy = new Subject<any>();
 
   public productos: Producto[] = [];
@@ -34,42 +43,44 @@ export class AllProductsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public mainCategoria: CategoriaProducto = {};
   public mainSubCategoria: SubCategoriaProducto = {};
+
   ngOnInit(): void {
-    this.getProductosRandom();
     this.getCategorias();
     this._route.queryParams
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe((params) => {
-        this.mainSubCategoria = {};
-        this.mainCategoria = {};
-        this.page = Number(params.page) || 1;
-        this.categoria = Number(params.categoria) || 0;
-        this.mainCategoria =
-          this.categorias.find((categoria) =>
-            categoria.subCategorias?.some((subCategoria) => {
-              if (subCategoria.id === this.categoria) {
-                this.mainSubCategoria = subCategoria;
-                return true;
-              }
-              return false;
-            })
-          ) || {};
-        if (this.categoria) {
-          this.getProductos(this.page);
-        } else {
-          this.getProductosRandom();
-        }
-        console.log(params);
-      });
+    .pipe(takeUntil(this.onDestroy))
+    .subscribe((params) => {
+      this.onParamsChange(params)
+    });
   }
-
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.unsubscribe();
   }
+  onParamsChange(params:any){
+    this.mainSubCategoria = {};
+    this.mainCategoria = {};
+    this.page = Number(params.page) || 1;
+    this.categoria = Number(params.categoria) || 0;
+    this.mainCategoria =
+      this.categorias.find((categoria) =>
+        categoria.subCategorias?.some((subCategoria) => {
+          if (subCategoria.id === this.categoria) {
+            this.mainSubCategoria = subCategoria;
+            return true;
+          }
+          return false;
+        })
+      ) || {};
+    if (this.categoria) {
+      this.getProductos(this.page);
+    } else {
+      this.getProductosRandom();
+    }
 
+  }
   getProductosRandom() {
     let parametros = JSON.stringify({ limit: this.itemsPerPage });
     this._api.Productos.getProductosRandom({ parametros })
@@ -102,6 +113,7 @@ export class AllProductsComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy))
       .subscribe((data: any) => {
         this.categorias = data.categorias;
+        console.log(this.categorias)
         this.counts = data.counts;
       });
   }
@@ -111,23 +123,25 @@ export class AllProductsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pages = Array(pages ? Math.ceil(pages) : 0).fill(true);
   }
   removeSearch() {
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams: { categoria: 0 },
-      queryParamsHandling: 'merge',
-      skipLocationChange: true,
-    });
+    let queryParams = {categoria:0}
+    let urlTree = this._router.createUrlTree([],{queryParams})
+    this._location.go(urlTree.toString())
+    this.onParamsChange(queryParams)
+    this.moveTo()
+
   }
   search(categoriaId?: number) {
     let queryParams: any = {
       page: this.page.toString(),
     };
     if (categoriaId) queryParams.categoria = categoriaId;
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams,
-      queryParamsHandling: 'merge',
-      skipLocationChange: true,
-    });
+    let urlTree = this._router.createUrlTree([],{queryParams})
+    this._location.go(urlTree.toString())
+    this.onParamsChange(queryParams)
+    this.moveTo()
   }
+
+  moveTo(){
+    window.scrollTo({top:this.seccionProductos.nativeElement.offsetTop - 140, behavior:"smooth"})
+}
 }

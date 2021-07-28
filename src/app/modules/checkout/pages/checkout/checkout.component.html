@@ -22,40 +22,54 @@
           "
         >
           <div class="form-group">
-            <label class="labelInput">Nombre Completo</label>
+            <label class="labelInput">Nombre</label>
             <input
-              formControlName="nombreCliente"
+              formControlName="nombre"
               type="text"
-              placeholder="Nombre completo"
+              placeholder="Nombre"
               class="form-control inputCanje"
             />
             <small
               class="text-danger"
-              *ngIf="!f.nombreCliente.value && f.nombreCliente.touched"
+              *ngIf="!f.nombre.value && f.nombre.touched"
               >Introduce tu nombre</small
             >
           </div>
           <div class="form-group">
-            <label class="labelInput">Correo Electrónico</label>
+            <label class="labelInput">Apellido</label>
             <input
-              formControlName="correo"
-              type="email"
-              placeholder="Correo Electronico"
+              formControlName="apellido"
+              type="text"
+              placeholder="Apellido"
               class="form-control inputCanje"
             />
             <small
               class="text-danger"
-              *ngIf="!f.correo.value && f.correo.touched"
-            >
-              Introduce tu correo electrónico</small
-            >
-            <small
-              class="text-danger"
-              *ngIf="!f.correo.pristine && f.correo.errors?.email"
-            >
-              Introduce un correo válido.</small
+              *ngIf="!f.apellido.value && f.apellido.touched"
+              >Introduce tu apellido</small
             >
           </div>
+        </div>
+        <div class="form-group">
+          <label class="labelInput">Correo Electrónico</label>
+          <input
+            formControlName="correo"
+            type="email"
+            placeholder="Correo Electronico"
+            class="form-control inputCanje"
+          />
+          <small
+            class="text-danger"
+            *ngIf="!f.correo.value && f.correo.touched"
+          >
+            Introduce tu correo electrónico</small
+          >
+          <small
+            class="text-danger"
+            *ngIf="!f.correo.pristine && f.correo.errors?.email"
+          >
+            Introduce un correo válido.</small
+          >
         </div>
         <div
           class="
@@ -282,38 +296,73 @@
               itemWidthForm
             "
           >
-            <div class="form-group">
+            <div class="form-group c-cards" >
               <label class="mb-3 labelInput">Elige tu forma de pago</label>
-              <div class="d-flex justify-content-around">
-                <div class="item d-flex mr-4">
-                  <input
+              <div class="d-flex justify-content-around acomodo-pago">
+                <div (click)="metodoPago = 'tarjeta'" class="item d-flex mr-4 radio cursor-pointer">
+                  <div>
+                    <input
                     name="metodoPago"
                     [value]="'tarjeta'"
                     id="radio6"
-                    class="mr-4"
+                    class="mr-4 radiopago"
                     type="radio"
                     formControlName="metodoPago"
-                  />
-                  <label for="radio6" class="labelChecked"
+                    />
+                    <label for="radio6" class="labelChecked"
                     >Pago con tarjeta</label
-                  >
+                    >
+                  </div>
+                  <i class="fas fa-credit-card"></i>
                 </div>
-                <!-- <div class="item d-flex">
-                  <input
+                <div (click)="metodoPago = 'oxxo'" class="item d-flex radio cursor-pointer">
+                  <div>
+                    <input
                     name="metodoPago"
                     [value]="'oxxo'"
                     id="radio5"
-                    class="mr-4"
+                    class="mr-4 radiopago"
                     type="radio"
                     formControlName="metodoPago"
-                  />
-                  <label for="radio5" class="labelChecked">Pago en Oxxo</label>
-                </div> -->
+                    />
+                    <label for="radio5" class="labelChecked">Pago en Oxxo</label>
+                  </div>
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                      viewBox="0 0 88 40" style="enable-background:new 0 0 88 40;" xml:space="preserve">
+                    <g>
+                      <path d="M0.6,37.3c0,1.5,1.2,2.7,2.7,2.7h81.4c1.5,0,2.7-1.2,2.7-2.7v-1.2H0.6V37.3z"/>
+                      <path d="M84.7,0H3.3C1.8,0,0.6,1.2,0.6,2.7v1.2h86.8V2.7C87.4,1.2,86.2,0,84.7,0z"/>
+                      <path d="M74.2,26.7c4,0,7.2-3.2,7.2-7.2c0-4-3.2-7.2-7.2-7.2c-4,0-7.2,3.2-7.2,7.2C66.9,23.5,70.2,26.7,74.2,26.7z"/>
+                      <path d="M14.7,12.3c-4,0-7.2,3.2-7.2,7.2c0,4,3.2,7.2,7.2,7.2c4,0,7.2-3.2,7.2-7.2C22,15.5,18.7,12.3,14.7,12.3z"/>
+                      <path d="M59.2,15.3l-4.3,5l6.8,8.1c1.6,2.5-1.5,5-3.4,2.7l-6.3-7.5l-6.1,7.1c-2,2.3-5-0.3-3.4-2.7l6.7-7.7l-4.4-5.2l2.8-3.5
+                        l4.4,5.3l3.8-4.4c1.9-2.2,3.8-5.1,6.3-6.6H0.6v28.1H15c6.7,0,9.7-4,14.1-9.4l4.2-5.1l-7-8c-1.7-2.5,1.4-5,3.3-2.8l6.5,7.4l6-7.2
+                        c1.9-2.3,5,0.1,3.4,2.7L39,19.5l4.5,5.1L40.7,28l-4.5-5l-3.7,4.5c-1.8,2.2-3.7,5.1-6.1,6.6h61V5.9H73.6
+                        C66.9,5.8,63.8,10.1,59.2,15.3z M26.1,19.5c0,6.3-5.1,11.4-11.4,11.4c-6.3,0-11.4-5.1-11.4-11.4c0-6.3,5.1-11.4,11.4-11.4
+                        C21,8.1,26.1,13.2,26.1,19.5z M85.5,19.5c0,6.3-5.1,11.4-11.4,11.4c-6.3,0-11.4-5.1-11.4-11.4c0-6.3,5.1-11.4,11.4-11.4
+                        C80.4,8.1,85.5,13.2,85.5,19.5z"/>
+                    </g>
+                    </svg>
+                </div>
+                <div (click)="metodoPago = 'payPal'" class="item d-flex radio cursor-pointer">
+                  <div>
+                    <input
+                    name="metodoPago"
+                    [value]="'payPal'"
+                    id="radio5"
+                    class="mr-4 radiopago"
+                    type="radio"
+                    formControlName="metodoPago"
+                    />
+                    <label for="radio5" class="labelChecked">Pago PayPal</label>
+                  </div>
+                  <i class="fab fa-cc-paypal"></i>
+                </div>
               </div>
             </div>
           </div>
+
           <div class="itemWidthForm">
-            <div class="w-75">
+            <div class="info-card">
               <div class="pay-container">
                 <!-- OXXO -->
                 <ng-container *ngIf="f.metodoPago.value == 'oxxo'">
@@ -367,7 +416,18 @@
                   ></ngx-stripe-card>
                 </ng-container>
 
-                <button class="pay-btn mt-2" (click)="pay()">PAGAR</button>
+                <ng-container *ngIf="f.metodoPago.value == 'payPal'">
+                  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                </ng-container>
+
+                <button
+                *ngIf="f.metodoPago.value !== 'payPal'"
+                  [ngClass]="{ 'btn-disabled': payDisabled }"
+                  class="pay-btn mt-2"
+                  (click)="pay()"
+                >
+                  PAGAR
+                </button>
               </div>
             </div>
           </div>
@@ -389,7 +449,12 @@
             <div class="producto-img">
               <img
                 loading="lazy"
-                [src]="item.img | img: item.id:'productos'"
+                [src]="
+                  item.img
+                    | img
+                      : item.id
+                      : (item.type === 'product' ? 'productos' : 'servicios')
+                "
                 class="img-fluid imgCarStyle"
               />
             </div>
@@ -408,10 +473,10 @@
                     mr-2
                   "
                 >
-                  {{ item.quantity }} x
+                  {{ item.quantity }} x &nbsp;
                 </p>
                 <p class="mb-0 ml-1 priceCar">
-                  {{ item.price * item.quantity | currency }} MXN
+                  {{ item.price | currency }} MXN
                 </p>
               </div>
             </div>
@@ -428,8 +493,8 @@
         </div>
 
         <div class="item d-flex justify-content-between">
-          <p class="textCheckT">Envio</p>
-          <p class="textCheckT">{{ envio | currency }} MXN</p>
+          <p class="textCheckT">Envío</p>
+          <p class="textCheckT">{{ f.envio.value | currency }} MXN</p>
         </div>
         <div *ngIf="totals.discount" class="d-flex justify-content-between">
           <p class="textCheckT">Descuento</p>
@@ -444,15 +509,14 @@
           </p>
         </div>
         <form>
-          <div class="form-group d-flex mt-2" >
+          <div class="form-group d-flex mt-2">
             <input
               type="text"
               id="cupon"
               placeholder="CUPON"
               [formControl]="couponControl"
               class="form-control coupon-input text-uppercase"
-              style="height: 30px; text-indent: 10px;padding-left: 0;"
-
+              style="height: 30px; text-indent: 10px; padding-left: 0"
             />
             <button class="coupon-btn" (click)="changeCoupon()">APLICAR</button>
           </div>
@@ -461,9 +525,9 @@
           class="item d-flex justify-content-between pt-4"
           style="border-top: 1px solid #eaeaea"
         >
-          <p style="font-weight: 700;">TOTAL</p>
-          <p style="font-weight: 700;">
-            {{ totals.total + envio | currency }} MXN
+          <p style="font-weight: 700">TOTAL</p>
+          <p style="font-weight: 700">
+            {{ totals.total + f.envio.value | currency }} MXN
           </p>
         </div>
       </div>

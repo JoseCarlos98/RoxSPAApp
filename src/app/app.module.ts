@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { ModulesModule } from './modules/modules.module';
 import { ImgPipe } from './shared/pipes/img.pipe';
 import { PipesModule } from './shared/pipes/pipes.module';
+import { ContactComponent } from './shared/components/contact/contact.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { PipesModule } from './shared/pipes/pipes.module';
     CoreModule,
     BrowserAnimationsModule,
     ModulesModule,
-    PipesModule,
+    PipesModule
   ],
   providers: [],
   bootstrap: [AppComponent],

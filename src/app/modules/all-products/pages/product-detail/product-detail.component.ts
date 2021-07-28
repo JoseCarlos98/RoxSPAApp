@@ -34,7 +34,8 @@ export class ProductDetailComponent
     private _route: ActivatedRoute,
     private _car: CarService,
     private _api: ApiService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _router: Router
   ) {}
 
   private onDestroy = new Subject<any>();
@@ -108,6 +109,10 @@ export class ProductDetailComponent
     this.quantityControl.setValue(this.quantityControl.value - 1);
   }
 
+  buy() {
+    if (this.addCar()) this._router.navigate(['/checkout']);
+  }
+
   addCar() {
     if (!this.hasStock) {
       this._toastr.error(
@@ -119,7 +124,7 @@ export class ProductDetailComponent
     if (this.quantityControl.invalid) {
       return;
     }
-    let item = this._car.Item.find(this.producto.id || -1);
+    let item = this._car.Item.find(this.producto.id || -1, 'product');
 
     let qty = (item?.quantity || 0) + this.quantityControl.value;
     if (
@@ -135,15 +140,24 @@ export class ProductDetailComponent
     let image =
       this.producto.archivos?.find((archivo) => archivo.esPrincipal)?.uuid ||
       '';
-    this._car.Item.update({
-      id: this.producto.id || -1,
-      name: this.producto.nombre || '',
-      price: this.producto.precio || 0,
-      info: this.producto.descripcion || '',
-      quantity: qty,
-      img: image,
-    });
+    return this._car.Item.update(
+      {
+        id: this.producto.id || -1,
+        name: this.producto.nombre || '',
+        price: this.producto.precio || 0,
+        info: this.producto.descripcion || '',
+        quantity: qty,
+        img: image,
+        type: 'product',
+      },
+      'product'
+    );
   }
-
+  get realPrice() {
+    if (!this.producto.descuento) return this.producto.precio;
+    return (
+      (this.producto.precio || 0) -
+      (this.producto.precio || 0) * this.producto.descuento
+    );
+  }
 }
-

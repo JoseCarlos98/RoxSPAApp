@@ -15,6 +15,7 @@ export class SuccessComponent implements OnInit {
     private _location: Location
   ) {}
   public data: any;
+  public amount: number = 0;
   ngOnInit(): void {
     let state: any = this._location.getState();
     this.data = state.data;
@@ -22,6 +23,10 @@ export class SuccessComponent implements OnInit {
     if (!this.data) {
       this._location.back();
     }
+    if (this.data.amount) this.amount = Number(this.data.amount) / 100;
+    if (this.data.purchase_units)
+      this.amount =
+        Number(this.data.purchase_units[0].payments.captures[0].amount.value);
     this._car.Car.delete();
     this._car.Coupon.update({});
   }

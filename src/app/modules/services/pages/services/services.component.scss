@@ -1,0 +1,39 @@
+.categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .categoria {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    .categoria-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #262626 ;
+      cursor: initial;
+      cursor: pointer;
+      &:hover{
+        color: var(--rosa);
+      }
+    }
+    .sub-categorias {
+      margin: 0 !important;
+    }
+  }
+}
+.card-categoria {
+  justify-content: flex-start;
+  padding: 20px 25px !important;
+}
+.main-categoria-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.categoria-selected {
+  color: var(--rosa);
+}
+.page-selected {
+  background-color: var(--rosa);
+  color: var(--cremoso);
+}

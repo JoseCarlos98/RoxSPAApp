@@ -31,6 +31,12 @@ import {
 import * as Stripe from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import {
+  IOnApproveCallbackActions,
+  IOnApproveCallbackData,
+  IPayPalConfig,
+  ICreateOrderRequest,
+} from 'ngx-paypal';
 
 @Component({
   selector: 'app-checkout',
@@ -47,9 +53,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     private _stripe: StripeService,
     private _location: Location
   ) {}
-  public envio: number = 99;
   private onDestroy = new Subject<any>();
-
   @ViewChild(StripeCardComponent) payCard!: StripeCardComponent;
   cardOptions: StripeCardElementOptions = {
     classes: { base: 'base-pay-card' },
@@ -58,13 +62,14 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     locale: 'es',
   };
 
+  public payPalConfig?: IPayPalConfig;
+
   public car: CarItem[] = [];
   public items = [];
   public estadosMx = [];
   public paises = [];
   public paying: boolean = false;
   public coupon?: Descuento;
-
   public form = this._fb.group({
     calle: ['', Validators.required],
     ciudad: ['', Validators.required],
@@ -72,7 +77,8 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     correo: ['', [Validators.required, Validators.email]],
     cp: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
     estado: [null, Validators.required],
-    nombreCliente: ['', Validators.required],
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
     numExt: [
       '',
       [
@@ -83,11 +89,11 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     ],
     numInt: ['', Validators.maxLength(6)],
     pais: ['MEX', Validators.required],
-    envio: [this.envio],
+    envio: [0],
     telefono: ['', [Validators.required, Validators.pattern(/^[0-9+]*$/)]],
     metodoPago: ['tarjeta', Validators.required],
   });
-
+  private datosOrden: any;
   public payForm = this._fb.group({
     nombres: ['', Validators.required],
     apellidos: ['', Validators.required],
@@ -103,13 +109,24 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this._car.Car.get().length <= 0) {
       this._location.back();
     }
-    this._car.car$.subscribe((car) => (this.car = car));
+    this._car.Car.verify();
+    this._car.car$.subscribe((car) => {
+      this.car = car;
+      let hasProduct = car.some((item) => item.type === 'product');
+      this.form.controls.envio.setValue(0);
+      if (hasProduct) this.form.controls.envio.setValue(99);
+      if (this._router.url === '/checkout' && !this.car.length) {
+        console.log(this._router.url);
+        this._router.navigateByUrl('/cart');
+      }
+    });
     this.getStates();
     this._car.Coupon.verify();
     this._car.coupon$.pipe(takeUntil(this.onDestroy)).subscribe((descuento) => {
       this.coupon = descuento;
       this.couponControl.setValue(this.coupon?.codigo);
     });
+    this.initPayPalConfig();
   }
 
   ngAfterViewInit(): void {}
@@ -117,6 +134,88 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy.next();
     this.onDestroy.complete();
+  }
+
+  async initPayPalConfig() {
+    this.payPalConfig = {
+      currency: 'MXN',
+      clientId: environment.payPalClientId,
+      style: {
+        layout:'horizontal'
+      },
+      createOrderOnServer: (data) =>
+        this.createPayPalOrder().then((res: any) => res.id),
+      onError: (error) => {
+        this._toastr.error('Error realizar transacción.', 'Error de compra.');
+      },
+      authorizeOnServer: (data, action) =>
+        this.authorizePayPalOrder(data).then((res) => {
+          this._router.navigateByUrl('/checkout/success', {
+            state: { data: res.orden },
+          });
+        }),
+    };
+  }
+
+  createPayPalOrder(): Promise<any> {
+    return new Promise((res, rej) => {
+      try {
+        if (this.form.invalid)
+          throw { error: 'Información de envío inválida.' };
+        let checkoutData = {
+          token: { type: 'payPal' },
+          info: { ...this.form.value, nombreCliente: this.payName },
+          coupon: this.coupon?.codigo,
+          checkout: this.car,
+        };
+        this._api.Checkout.pagarPayPal(checkoutData)
+          .pipe(takeUntil(this.onDestroy))
+          .subscribe(
+            (response: any) => {
+              if (response) {
+                this.datosOrden = response.datos;
+                res(response.orden);
+              }
+              throw { error: 'Verifique su en conexión' };
+            },
+            (error) => {
+              let payError = error.error.message.error;
+              if (payError) {
+                throw { error: payError };
+              } else {
+                throw { error: 'Verifique su conexión.' };
+              }
+            }
+          );
+      } catch (error) {
+        if (error.error) error = error.error;
+        this._toastr.error(error, 'Error al pagar.');
+        rej(error);
+      }
+    });
+  }
+
+  authorizePayPalOrder(data: IOnApproveCallbackData): Promise<any> {
+    return new Promise((res, rej) => {
+      try {
+        this._api.Checkout.confirmarPagoPayPal({
+          data: this.datosOrden,
+          orderId: data.orderID,
+        })
+          .pipe(takeUntil(this.onDestroy))
+          .subscribe(
+            (response) => {
+              res(response);
+            },
+            (err) => {
+              rej(err);
+            }
+          );
+      } catch (error) {
+        this._toastr.error(error, 'Error al finalizar Transacción.');
+        rej(error);
+      }
+    });
   }
 
   getStates() {
@@ -129,122 +228,163 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy))
       .subscribe((states: any) => (this.estadosMx = states));
   }
+  disableScroll() {
+    document.body.classList.add('stop-scrolling');
+  }
+  enableScroll() {
+    document.body.classList.remove('stop-scrolling');
+  }
 
-  pay() {
+  async pay() {
     if (this.paying) return;
-    this.paying = true;
-
     try {
       if (this.form.invalid) throw { error: 'Información de envío inválida.' };
+      let payType = this.form.controls.metodoPago.value;
+      payType = payType === 'tarjeta' ? 'card' : 'oxxo';
+      if (payType === 'card' && this.payForm.invalid)
+        throw { error: 'Información de pago inválida' };
 
-      if (this.form.controls.metodoPago.value === 'tarjeta') {
-        if (this.payForm.invalid)
-          throw { error: 'Información de pago inválida.' };
-        this.payWithMethod('card');
-      } else if (this.form.controls.metodoPago.value === 'oxxo') {
-        this.payWithMethod('oxxo');
+      this.paying = true;
+      this.disableScroll();
+      try {
+        let data: any = await this.payWithMethod(payType);
+        if (payType === 'oxxo') {
+          let paymentMethod: PaymentMethod = data.method.paymentMethod;
+          let paymentIntent: Stripe.PaymentIntent = data.data;
+          let email = paymentMethod.billing_details.email || '';
+          let name = paymentMethod.billing_details.name || '';
+          let clientSecret = paymentIntent.client_secret || '';
+          this._stripe
+            .confirmOxxoPayment(clientSecret, {
+              receipt_email: email,
+              payment_method: paymentIntent.payment_method || '',
+            })
+            .pipe(takeUntil(this.onDestroy))
+            .subscribe(
+              (res: any) => {
+                console.log(res);
+              },
+              (err: any) => {
+                this._toastr.error(
+                  'Error al confirmar pago oxxo.',
+                  'Error al pagar Oxxo'
+                );
+              }
+            );
+        }
+        this._router.navigateByUrl('/checkout/success', {
+          state: { data: data.data },
+        });
+      } catch (error) {
+        console.log(error);
+        this._toastr.error(error.error, 'Error al pagar.');
+      } finally {
+        this.paying = false;
+        this.enableScroll();
       }
     } catch (error) {
-      this.paying = true;
       if (error.error) error = error.error;
       this._toastr.error(error, 'Error al pagar.');
     } finally {
+      this.paying = false;
+      this.enableScroll();
     }
   }
 
   payWithMethod(type: any) {
-    let name = `${this.payForm.controls.nombres.value} ${this.payForm.controls.apellidos.value}`;
-    let paymentMethodData: any = { type: type };
-    if (type === 'oxxo') {
-      paymentMethodData = {
-        ...paymentMethodData,
-        billing_details: {
-          email: this.form.controls.correo.value,
-          name: this.form.controls.nombreCliente.value,
-        },
-      };
-    } else if (type === 'card') {
-      paymentMethodData = {
-        ...paymentMethodData,
-        card: this.payCard.element,
-        billing_details: { name },
-      };
-    }
-    this._stripe.confirmAuBecsDebitPayment;
-    this._stripe
-      .createPaymentMethod(paymentMethodData)
-      .pipe(
-        takeUntil(this.onDestroy),
-        mergeMap((method) => {
-          if (method.error) return throwError(method.error);
-          return of(method);
-        })
-      )
-      .subscribe(
-        (method) => {
-          this.sendPay(method);
-        },
-        (error) => {
-          this.paying = false;
-          this._toastr.error(error.message, 'Error en Información de pago.');
-        }
-      );
+    return new Promise((res, rej) => {
+      let paymentMethodData: any = { type: type };
+      if (type === 'oxxo') {
+        paymentMethodData = {
+          ...paymentMethodData,
+          billing_details: {
+            email: this.form.controls.correo.value,
+            name: this.payName,
+          },
+        };
+      } else if (type === 'card') {
+        paymentMethodData = {
+          ...paymentMethodData,
+          card: this.payCard.element,
+          billing_details: {
+            name: this.cardName,
+            email: this.form.controls.correo.value,
+          },
+        };
+      }
+
+      this._stripe
+        .createPaymentMethod(paymentMethodData)
+        .pipe(
+          takeUntil(this.onDestroy),
+          mergeMap((method) => {
+            if (method.error) return throwError(method.error);
+            return of(method);
+          })
+        )
+        .subscribe(
+          (method) => {
+            this.sendPay(method)
+              .then((data) => {
+                res(data);
+              })
+              .catch((err) => {
+                rej(err);
+              });
+          },
+          (error) => {
+            rej({ error: error.message });
+          }
+        );
+    });
   }
+
   sendPay(method: {
     paymentMethod?: PaymentMethod | undefined;
     error?: StripeError | undefined;
   }) {
-    let checkoutData = {
-      token: method.paymentMethod,
-      info: this.form.value,
-      coupon: this.coupon?.codigo,
-      checkout: this.car,
-    };
-    this._api.Checkout.pagar(checkoutData)
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(
-        (res: any) => {
-          this.paying = false;
-          if (res) {
-            if (
-              res.payment_method_types[0] === 'oxxo' &&
-              method.paymentMethod
-            ) {
-              // this._stripe
-              //   .confirmOxxoPayment(res.client_secret, {
-              //     payment_method: <any>method.paymentMethod,
-              //   })
-              //   .subscribe((data) => {
-              //     console.log(data);
-              //   });
+    return new Promise((res, rej) => {
+      let checkoutData = {
+        token: method.paymentMethod,
+        info: { ...this.form.value, nombreCliente: this.payName },
+        coupon: this.coupon?.codigo,
+        checkout: this.car,
+      };
+      this._api.Checkout.pagar(checkoutData)
+        .pipe(takeUntil(this.onDestroy))
+        .subscribe(
+          (response: any) => {
+            if (response) {
+              res({
+                data: response.paymentIntent,
+                method,
+                venta: response.venta,
+              });
             }
-            this._router.navigateByUrl('/checkout/success', {
-              state: { data: res },
-            });
+            rej({ error: 'Verifique su en conexión' });
+          },
+          (error) => {
+            let payError = error.error.message.error;
+            if (payError) {
+              rej({ error: payError });
+            } else {
+              rej({ error: 'Verifique su conexión.' });
+            }
           }
-        },
-        (error) => {
-          this.paying = false;
-          let payError = error.error.message.error;
-          if (payError) {
-            this._toastr.error(payError, 'Error al pagar.');
-          } else {
-            this._toastr.error('Verifique su conexión.', 'Error al pagar.');
-          }
-        }
-      );
+        );
+    });
   }
 
   changeCoupon() {
     this._car.Coupon.update({ codigo: this.couponControl.value });
     this._car.Coupon.verify(true);
   }
-  removeItem(index: number) {
-    this._car.Item.remove(index);
-    this._toastr.success('Se ha eliminado el producto correctamente', '', {
-      timeOut: 2000,
-    });
-  }
+  // removeItem(index: number) {
+  //   this._car.Item.remove(index);
+  //   this._toastr.success('Se ha eliminado el producto correctamente', '', {
+  //     timeOut: 2000,
+  //   });
+  // }
 
   checkCP() {
     let cp = this.form.controls.cp.value;
@@ -350,5 +490,23 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get f() {
     return this.form.controls;
+  }
+  get payName() {
+    return `${this.form.controls.nombre.value} ${this.form.controls.apellido.value}`;
+  }
+  get cardName() {
+    return `${this.payForm.controls.nombres.value} ${this.payForm.controls.apellidos.value}`;
+  }
+
+  set metodoPago(metodo:string){
+    this.f.metodoPago.setValue(metodo)
+  }
+
+  get payDisabled() {
+    if (!this.form.valid) return true;
+    if (this.f.metodoPago.value === 'oxxo') return false;
+    if (this.f.metodoPago.value === 'tarjeta' && this.payForm.valid)
+      return false;
+    return true;
   }
 }

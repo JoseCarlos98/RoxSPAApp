@@ -37,21 +37,21 @@
             <img
               routerLink="/products/{{ item.id }}"
               class="cursor-pointer"
-              [src]="item.img | img: item.id:'productos'"
+              [src]="item.img | img: item.id:item.type==='service'?'servicios':'productos'"
               alt=""
             />
           </div>
         </div>
         <div class="col-3 info-prod justify-content-start">
-          <h1 class="cursor-pointer" routerLink="/products/{{ item.id }}">
+          <h1 class="cursor-pointer" routerLink="/{{item.type}}s/{{ item.id }}">
             {{ item.name || "-" }}
           </h1>
         </div>
         <div class="off col-2 precio-prod">
-          <p *ngIf="item.discount" class="off-price">
+          <p *ngIf="item.discount" class="off-price" >
             {{ (item.price | currency) || "-" }}
           </p>
-          <p>{{ (getRealPrice(item) | currency) || "-" }}</p>
+          <p style="color: #E86A6A; margin-left: 10px;">{{ (getRealPrice(item) | currency) || "-" }}</p>
         </div>
         <div class="col-2">
           <div class="add-producto acom">

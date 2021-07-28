@@ -8,7 +8,10 @@
   <div class="image-producto">
     <img
       loading="lazy"
-      [src]="imageRoute | img: producto.id:'productos'"
+      [src]="
+        imageRoute
+          | img: producto.id:(type === 'service' ? 'servicios' : 'productos')
+      "
       class="img-p"
       alt=""
     />

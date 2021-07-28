@@ -69,7 +69,9 @@ export class CartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRealPrice(carItem: CarItem) {
-    return (carItem.price || 0) / ((carItem.discount || 0) + 1);
+    let precio = carItem.price || 0;
+    let descuento = precio * (carItem.discount || 0);
+    return precio - descuento;
   }
 
   addQty(carItem: CarItem) {
@@ -85,7 +87,7 @@ export class CartComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     carItem.quantity++;
-    this._car.Item.update(carItem);
+    this._car.Item.update(carItem, carItem.type);
   }
 
   subQty(carItem: CarItem) {
@@ -101,11 +103,11 @@ export class CartComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     carItem.quantity--;
-    this._car.Item.update(carItem);
+    this._car.Item.update(carItem, carItem.type);
   }
 
   removeItem(carItem: CarItem) {
-    this._car.Item.remove(carItem.id);
+    this._car.Item.remove(carItem.id, carItem.type);
   }
 
   verifyProduct(id: number) {

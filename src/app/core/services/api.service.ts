@@ -39,6 +39,25 @@ export class ApiService {
       }),
   };
 
+  public Servicios = {
+    getAdvanced: (params?: any) =>
+      this.get({ model: 'servicios', endpoint: 'getAdvanced', params }),
+    getAll: (params?: any) =>
+      this.get({ model: 'servicios', endpoint: 'getAll', params }),
+    getCategorias: (params?: any) =>
+      this.get({ model: 'servicios', endpoint: 'getServicios', params }),
+    getProductosTipo: (params?: any) =>
+      this.get({ model: 'servicios', endpoint: 'getServiciosTipo', params }),
+    getServiciosRandom: (params?: any) =>
+      this.get({ model: 'servicios', endpoint: 'getServiciosRandom', params }),
+    getServiciosRandomTipo: (params?: any) =>
+      this.get({
+        model: 'servicios',
+        endpoint: 'getServiciosRandomTipo',
+        params,
+      }),
+  };
+
   public Categorias = {
     Productos: {
       getAll: (params?: any) =>
@@ -53,10 +72,26 @@ export class ApiService {
   public Checkout = {
     pagar: (body: any, params?: any) =>
       this.post({ model: 'checkout', endpoint: 'pagar', params, body }),
+    pagarPayPal: (body: any, params?: any) =>
+      this.post({ model: 'checkout', endpoint: 'pagarPayPal', params, body }),
     notificacionPago: (body: any, params?: any) =>
       this.post({
         model: 'checkout',
         endpoint: 'notificacionPago',
+        params,
+        body,
+      }),
+    confirmarPago: (body: any, params?: any) =>
+      this.post({
+        model: 'checkout',
+        endpoint: 'confirmarPago',
+        params,
+        body,
+      }),
+    confirmarPagoPayPal: (body: any, params?: any) =>
+      this.post({
+        model: 'checkout',
+        endpoint: 'confirmarPagoPayPal',
         params,
         body,
       }),
@@ -68,7 +103,7 @@ export class ApiService {
   };
 
   public get(data: Omit<reqData, 'body'>) {
-    let endpoint = data.endpoint ? `/${data.endpoint}`: ''
+    let endpoint = data.endpoint ? `/${data.endpoint}` : '';
     return this.http
       .get(`${this.API_URL}/${data.model}${endpoint}`, {
         params: data.params,
@@ -77,7 +112,7 @@ export class ApiService {
   }
 
   public post(data: reqData) {
-    let endpoint = data.endpoint ? `/${data.endpoint}`: ''
+    let endpoint = data.endpoint ? `/${data.endpoint}` : '';
     return this.http
       .post(`${this.API_URL}/${data.model}${endpoint}`, data.body, {
         params: data.params,
@@ -85,7 +120,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
   public localGet(data: Omit<reqData, 'body'>) {
-    let endpoint = data.endpoint ? `/${data.endpoint}`: ''
+    let endpoint = data.endpoint ? `/${data.endpoint}` : '';
     return this.http
       .get(`/${data.model}${endpoint}`, {
         params: data.params,

@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.roxspastudio.com',
-  stripeKey: 'pk_test_51J0XM2Cztrw1J546GM5k25kNAFag6Df3zcWw8RNjPVpS6iT8a8QWnWiCblVf5IU3wnyK2cxtUVUX2FBxpg5zidpD00tNkFMcO1'
+  apiUrl: 'http://localhost:1337',
+  stripeKey:
+    'pk_test_51J0XM2Cztrw1J546GM5k25kNAFag6Df3zcWw8RNjPVpS6iT8a8QWnWiCblVf5IU3wnyK2cxtUVUX2FBxpg5zidpD00tNkFMcO1',
+  payPalClientId:
+    'AcbYrVG7v50TO36rWYi3Q2DwUYQi4d5i197wUL7xLV6jnETkdTFWk_Y4ZFfON8DDsQy6FI0IsDZvcpCH',
 };
 
 /*

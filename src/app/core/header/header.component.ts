@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     return this._car.Car.totals();
   }
   public get descuento() {
-    return (this.cupon?.porcentaje);
+    return this.cupon?.porcentaje;
   }
   ngOnInit(): void {
     this._router.events.subscribe((event: any) => {
@@ -37,8 +37,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     this.onDestroy.next();
@@ -46,7 +45,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public removeCarItem(item: CarItem) {
-    this._car.Item.remove(item.id);
+    this._car.Item.remove(item.id, item.type);
   }
 
   scroll(ele: HTMLElement) {
@@ -58,6 +57,22 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!carItem.img) {
       route = CONFIG.NOT_FOUND_IMAGE;
     }
+    return route;
+  }
+  getRealPrice(item: CarItem) {
+    if (!item.discount) return item.price;
+    let discount = item.discount * item.price;
+    return item.price - discount;
+  }
+  scrollContacto() {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+  getRoute(type: string, id: number) {
+    let route = `/${type}s/${id}`;
+    if (type === 'service') route = `/${type}s/detail/${id}`;
     return route;
   }
 }

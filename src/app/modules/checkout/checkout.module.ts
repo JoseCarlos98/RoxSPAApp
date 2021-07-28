@@ -10,6 +10,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { SuccessComponent } from './pages/success/success.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [CheckoutComponent, SuccessComponent],
@@ -21,7 +22,8 @@ import { SuccessComponent } from './pages/success/success.component';
     ReactiveFormsModule,
     FormsModule,
     NgxStripeModule.forRoot(environment.stripeKey),
-    PipesModule
+    PipesModule,
+    NgxPayPalModule,
   ],
 })
 export class CheckoutModule {}

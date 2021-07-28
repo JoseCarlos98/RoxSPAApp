@@ -1,0 +1,82 @@
+<div class="seccion1 ns">
+  <section class="seccion1S">
+    <div class="container">
+      <div class="row rowP">
+        <div class="col-md-6">
+          <div class="infoS ">
+            <div class="col-8 contenedor-somos sin-margin">
+              <h2 style="margin: 0">La mejor calidad</h2>
+              <h1 style="color: #212121">Nuestros servicios</h1>
+              <p class="p-m">
+                Aenean sollicitudin imperdiet ipsum quis pharetra. Fusce non
+                aliquam quam. Morbi scelerisque dictum erat sit amet viverra.
+                Quisque dignissim justo consequat diam euismod porta. Maecenas
+                mollis finibus nisl, eget accumsan ex sollicitudin ut.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br/>
+
+  <section class="seccion2P">
+    <div #seccionServicios class="container-fuid" style="background: #f7f7f7">
+      <div class="container">
+        <div class="opcionesP">
+          <p (click)="removeSearch()">Inicio</p>
+          <ng-container *ngIf="categoria">
+            <p>/</p>
+            <p style="color: #E86A6A;">{{ mainCategoria?.nombre || "-" }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+    <!-- PRODUCTOS  -->
+    <div class="productosP">
+      <div class="container">
+        <div class="row d-flex justify-content-lg-between">
+          <div class="col-md-3 card-categoria">
+            <h2 class="main-categoria-title">CATEGORÍAS</h2>
+            <div class="categorias">
+              <ng-container *ngFor="let categoria of categorias">
+                <div class="categoria">
+                  <p
+                  [ngClass]="{
+                    'categoria-selected':
+                      categoria.id === mainCategoria.id
+                  }"
+                  (click)="search(categoria.id)"
+
+                  class="categoria-title">{{ categoria.nombre }}</p>
+                  <p>{{ counts[categoria.id || 0] || 0 }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-9 cards-P">
+            <div class="row row-imgs largoImgs" id="imagenesProdutos">
+              <ng-container *ngFor="let servicio of servicios">
+                <div class="container-product2">
+                  <app-product [producto]="servicio" [type]="'service'"></app-product>
+                </div>
+              </ng-container>
+            </div>
+            <br />
+            <div class="paginacion">
+              <ng-container *ngFor="let pag of pages; let index = index"
+                ><p [ngClass]="{ 'page-selected': index + 1 === page }">
+                  {{ index + 1 }}
+                </p></ng-container
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<app-contact></app-contact>

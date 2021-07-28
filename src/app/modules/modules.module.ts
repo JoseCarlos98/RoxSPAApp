@@ -5,6 +5,8 @@ import { HomeModule } from './home/home.module';
 import { CartModule } from './cart/cart.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { PipesModule } from '../shared/pipes/pipes.module';
+import { ServicesModule } from './services/services.module';
+import { ContactModule } from '../shared/components/contact/contact.module';
 
 @NgModule({
   declarations: [],
@@ -14,12 +16,15 @@ import { PipesModule } from '../shared/pipes/pipes.module';
     AllProductsModule,
     CartModule,
     CheckoutModule,
+    ServicesModule,
+    ContactModule
   ],
   exports: [
     HomeModule,
     AllProductsModule,
     CartModule,
     CheckoutModule,
+    ServicesModule,
     PipesModule
   ],
 })

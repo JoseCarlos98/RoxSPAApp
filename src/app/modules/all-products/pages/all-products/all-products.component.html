@@ -30,8 +30,8 @@
   </section>
   <br />
 
-  <section class="seccion2P">
-    <div class="container-fuid" style="background: #f7f7f7">
+  <section  class="seccion2P">
+    <div #seccionProductos class="container-fuid" style="background: #f7f7f7">
       <div class="container">
         <div class="opcionesP">
           <p (click)="removeSearch()">Inicio</p>
@@ -79,8 +79,8 @@
           </div>
           <div class="col-md-9 cards-P">
             <div class="row row-imgs largoImgs" id="imagenesProdutos">
-              <ng-container *ngFor="let producto of productos">
-                <div class="col-md-4">
+              <ng-container *ngFor="let producto of productos" >
+                <div class="container-product2 ">
                   <app-product [producto]="producto"></app-product>
                 </div>
               </ng-container>
@@ -99,64 +99,5 @@
     </div>
   </section>
 
-  <!-- CONTACTO  -->
-  <div class="container-fluid contacto">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-          <div class="c-formulario">
-            <div class="col-12 contenedor-somos" style="height: auto">
-              <h2 style="margin: 0">¿Te interesa hacer una cita?</h2>
-              <h1
-                style="
-                  color: #3c3c3c;
-                  line-height: 60px;
-                  font-size: 48px;
-                  color: #212121;
-                "
-              >
-                Contáctanos
-              </h1>
-              <br />
-              <form novalidate>
-                <div class="group">
-                  <input class="inputext" id="name" type="text" required />
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
-                  <label class="input-descripcion">Nombre</label>
-                </div>
-                <div class="group">
-                  <input class="inputext" id="email" type="text" required />
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
-                  <label class="input-descripcion">Email</label>
-                </div>
-                <div class="group" style="padding-top: 30px">
-                  <textarea
-                    class="inputext"
-                    id="message"
-                    name=""
-                    cols="5"
-                    rows="2"
-                  ></textarea>
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
-                  <label class="input-descripcion">Mensaje</label>
-                </div>
-                <div>
-                  <a
-                    class="btn-enviar"
-                    id="sendMessageButton"
-                    onclick="enviarmail()"
-                    >ENVIAR</a
-                  >
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+<app-contact></app-contact>
